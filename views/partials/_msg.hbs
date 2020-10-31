@@ -1,0 +1,17 @@
+{{#if success_msg}}
+<script>
+  M.toast({ html: `{{success_msg}}`, classes: 'success' })
+</script>
+{{/if}}
+
+{{#if error_msg}}
+<script>
+  M.toast({ html: `{{error_msg}}`, classes: 'alert' })
+</script>
+{{/if}}
+
+{{#if error}}
+<script>
+  M.toast({ html: `{{error}}`, classes: 'alert' })
+</script>
+{{/if}}

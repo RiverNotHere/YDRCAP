@@ -1,0 +1,96 @@
+<table class="highlight responsive-table">
+  <thead>
+    <tr id="th">
+      <th>First Name</th>
+      <th>Last Name</th>
+      <th>Start Time <span class="hide-on-med-and-down">(MM-DD-YYYY hh:mm)</span></th>
+      <th>End Time <span class="hide-on-med-and-down">(MM-DD-YYYY hh:mm)</span></th>
+      <th>Hours Recorded</th>
+    </tr>
+  </thead>
+
+  {{#if records}}
+  <tbody>
+    {{#each records}}
+    <tr id="{{this._id}}" data-target="e-{{this._id}}" class="modal-trigger">
+      <td>{{this.first_name}}</td>
+      <td>{{this.last_name}}</td>
+      <td>{{formatDate this.start_time}}</td>
+      <td>{{formatDate this.end_time}}</td>
+      <td>{{sum this.hours_recorded this.additional_hours}}</td>
+    </tr>
+    <!-- Modal Structure -->
+    <div id="e-{{this._id}}" class="modal">
+      <div class="modal-content">
+        <h4><u>Event Details</u></h4>
+        <br>
+        
+        <div class="row">
+          <div class="col l4 m6 s6">
+            <p class="label">Event Type:</p>
+            <p>{{record.event_type}}</p>
+          </div>
+        
+          <div class="col l3 m6 s6">
+            <p class="label">Event Coordinator:</p>
+            {{#if record.coordinator}}
+            <p>{{record.coordinator}}</p>
+            {{else}}
+            <p>Event not confirmed yet</p>
+            {{/if}}
+          </div>
+        
+          <div class="col l3 m6 s12">
+            <p class="label">Status:</p>
+            <p>{{{switch record.status}}}</p>
+          </div>
+        </div>
+        
+        
+        <div class="row">
+          <div class="col l4 m6 s6">
+            <p class="label">Start Time:</p>
+            <p>{{formatDate record.start_time}}</p>
+          </div>
+          <div class="col l4 m6 s6">
+            <p class="label">End Time:</p>
+            <p>{{formatDate record.end_time}}</p>
+          </div>
+        </div>
+        
+        <div class="row">
+          <div class="col l4 m6 s6">
+            <p class="label">Hours Recorded:</p>
+            <p>{{record.hours_recorded}}</p>
+          </div>
+          <div class="col l4 m6 s6">
+            <p class="label">Additional Hours:</p>
+            <p>{{record.additional_hours}}</p>
+          </div>
+        </div>
+        
+        <div class="row">
+          <div class="col l12">
+            <p class="label">Event Description:</p>
+            {{#if record.event_desc}}
+            <p>{{record.event_desc}}</p>
+            {{else}}
+            <p>No Description for this event</p>
+            {{/if}}
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <a href="#!" class="modal-close waves-effect waves-green btn-flat">Agree</a>
+      </div>
+    </div>
+    {{/each}}
+  </tbody>
+  {{else}}
+  <caption>Currently no records</caption>
+  {{/if}}
+</table>
+
+<script>
+  M.Modal.init(document.querySelectorAll('.modal'))
+</script>

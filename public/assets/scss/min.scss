@@ -1,0 +1,54 @@
+/* Initailize */
+@import 'lib/vars';
+@import 'lib/fonts';
+
+@import 'base/reset';
+
+/* BASIC STYLE */
+#title {
+  font-family: LaoMN !important;
+}
+
+footer {
+  padding: 10px;
+  color: white;
+  background-color: $dark-blue;
+  display: flex !important;
+  justify-content: flex-end !important;
+  clear: both;
+}
+
+footer a {
+  color: white !important;
+}
+
+footer a:hover {
+  color: white !important;
+  text-decoration: none;
+  border-bottom: 1px dotted black;
+}
+
+nav{
+  background-color: $blue !important;
+}
+
+.main:not(form > button) {
+  margin-left: 210px;
+}
+
+@media (max-width: $breakpoint-tablet) {
+  .main:not(form > button) {
+    margin-left: 80px !important;
+  }
+}
+/* END BASIC STYLE */
+
+/* Layouts */
+@import 'layouts/background';
+
+/* Components */
+@import 'components/box';
+@import 'components/login-form';
+@import 'components/toast';
+@import 'components/button';
+@import 'components/sidebar';
