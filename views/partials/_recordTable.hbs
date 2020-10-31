@@ -20,7 +20,7 @@
       <td>{{sum this.hours_recorded this.additional_hours}}</td>
     </tr>
     <!-- Modal Structure -->
-    <div id="e-{{this._id}}" class="modal">
+    <div id="e-{{record._id}}" class="modal">
       <div class="modal-content">
         <h4><u>Event Details</u></h4>
         <br>
@@ -86,8 +86,6 @@
     </div>
     {{/each}}
   </tbody>
-  {{else}}
-  <caption>Currently no records</caption>
   {{/if}}
 </table>
 

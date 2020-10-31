@@ -2,7 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d9540d9b-c350-44f2-817d-584499beeff8" name="默认的" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/assets/css/min.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/min.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/assets/css/min.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/min.css.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/assets/scss/min.scss" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/scss/min.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/portal.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/portal.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/dashboard.hbs" beforeDir="false" afterPath="$PROJECT_DIR$/views/dashboard.hbs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/partials/_header.hbs" beforeDir="false" afterPath="$PROJECT_DIR$/views/partials/_header.hbs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/partials/_recordTable.hbs" beforeDir="false" afterPath="$PROJECT_DIR$/views/partials/_recordTable.hbs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -11,6 +19,12 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="JsFlowSettings">
+    <service-enabled>true</service-enabled>
+    <exe-path />
+    <other-services-enabled>true</other-services-enabled>
+    <auto-save>true</auto-save>
   </component>
   <component name="ProjectId" id="1jcp1CZHIKqAcJrbCfqDCH9fnMM" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -21,10 +35,60 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="javascript.karma.karma_node_package_dir" value="" />
+    <property name="js.buildTools.grunt.grunt-cli.package" value="" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="nodejs.cucumber.cucumber_node_package_dir" value="" />
+    <property name="nodejs.jest.jest_package" value="$PROJECT_DIR$/node_modules/jest" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
     <property name="vue.rearranger.settings.migration" value="true" />
+  </component>
+  <component name="RunManager">
+    <configuration default="true" type="JavaScriptTestRunnerJest">
+      <node-interpreter value="project" />
+      <node-options value="" />
+      <jest-package value="$PROJECT_DIR$/node_modules/jest" />
+      <working-dir value="" />
+      <envs />
+      <scope-kind value="ALL" />
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="js.build_tools.grunt">
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="js.build_tools.npm">
+      <package-json value="$PROJECT_DIR$/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="dev" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2">
+        <option name="FwBeforeLaunchTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="rundev" type="js.build_tools.npm">
+      <package-json value="$PROJECT_DIR$/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="dev" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2">
+        <option name="FwBeforeLaunchTask" enabled="true" />
+      </method>
+    </configuration>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -34,7 +98,9 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1604113019447</updated>
-      <workItem from="1604113022200" duration="297000" />
+      <workItem from="1604113022200" duration="1722000" />
+      <workItem from="1604114797604" duration="2233000" />
+      <workItem from="1604156963364" duration="540000" />
     </task>
     <servers />
   </component>
@@ -42,9 +108,17 @@
     <option name="version" value="3" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="206" y="54" key="SettingsEditor" timestamp="1604113322830">
+    <state x="184" y="123" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1604157204491">
       <screen x="0" y="23" width="1440" height="877" />
     </state>
-    <state x="206" y="54" key="SettingsEditor/0.23.1440.877@0.23.1440.877" timestamp="1604113322830" />
+    <state x="184" y="123" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.23.1440.877@0.23.1440.877" timestamp="1604157204491" />
+    <state x="534" y="270" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1604157297658">
+      <screen x="0" y="23" width="1440" height="877" />
+    </state>
+    <state x="534" y="270" key="#com.intellij.fileTypes.FileTypeChooser/0.23.1440.877@0.23.1440.877" timestamp="1604157297658" />
+    <state x="101" y="129" key="SettingsEditor" timestamp="1604157503686">
+      <screen x="0" y="23" width="1440" height="877" />
+    </state>
+    <state x="101" y="129" key="SettingsEditor/0.23.1440.877@0.23.1440.877" timestamp="1604157503686" />
   </component>
 </project>

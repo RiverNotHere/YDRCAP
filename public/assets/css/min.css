@@ -10,11 +10,11 @@
 }
 @font-face {
   font-family: KhmerMN;
-  src: url(../../fonts/Khmer-MN.ttc);
+  src: url(../fonts/Khmer-MN.ttc);
 }
 @font-face {
   font-family: LaoMN;
-  src: url(../../fonts/Lao-MN.ttc);
+  src: url(../fonts/Lao-MN.ttc);
 }
 html, body, div, span, applet, object,
 iframe, h1, h2, h3, h4, h5, h6, p, blockquote,
@@ -106,16 +106,20 @@ footer a:hover {
   border-bottom: 1px dotted black;
 }
 
+table th {
+  font-weight: bold;
+}
+
 nav {
   background-color: #00A0E6 !important;
 }
 
-.main:not(form > button) {
+.main:not(button) {
   margin-left: 210px;
 }
 
 @media (max-width: 600px) {
-  .main:not(form > button) {
+  .main:not(button) {
     margin-left: 80px !important;
   }
 }

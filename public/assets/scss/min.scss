@@ -28,16 +28,22 @@ footer a:hover {
   border-bottom: 1px dotted black;
 }
 
+table {
+  th {
+    font-weight: bold;
+  }
+}
+
 nav{
   background-color: $blue !important;
 }
 
-.main:not(form > button) {
+.main:not(button) {
   margin-left: 210px;
 }
 
 @media (max-width: $breakpoint-tablet) {
-  .main:not(form > button) {
+  .main:not(button) {
     margin-left: 80px !important;
   }
 }
