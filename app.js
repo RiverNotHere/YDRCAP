@@ -1,3 +1,10 @@
+/*
+ * Copyright (c) 2020. by o0River0o. All rights reserved.
+ * Codes here may not be used for any non-commercial or commercial uses before getting approved by the original author.
+ * Any use of code from these project should declare the original source it's from
+ *
+ */
+
 const path = require('path')
 require('dotenv').config({ path: './config/config.env' });
 
@@ -5,6 +12,9 @@ const express = require('express')
 const app = express()
 
 const exphbs = require('express-handlebars')
+
+//moment
+const moment = require('moment')
 
 //Express Sessions
 const flash = require('connect-flash');
@@ -59,6 +69,22 @@ app.engine('.hbs', exphbs({
     },
     sum: function (a, b) {
       return a + b;
+    },
+    getStat: function(now, before, period) {
+      let decreaseValue = before - now;
+      let perc = (decreaseValue / before) * 100;
+      console.log(perc)
+      console.log(perc > 0)
+      if(period == 'day') {
+        period = 'yesterday';
+      } else {
+        period = "last " + period;
+      }
+      if (perc > 0) {
+        return `<font color="red"><i class="material-icons">arrow_downward</i> ${Math.abs(perc)}% since ${period}</font>`
+      }else {
+        return `<font color="green"><i class="material-icons">arrow_upward</i> ${Math.abs(perc)}% since ${period}</font>`
+      }
     }
   }
 }));

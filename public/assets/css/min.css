@@ -1,3 +1,9 @@
+/*!
+ * Copyright (c) 2020. by o0River0o. All rights reserved.
+ * Codes here may not be used for any non-commercial or commercial uses before getting approved by the original author.
+ * Any use of code from these project should declare the original source it's from
+ *
+ */
 /* Initailize */
 @font-face {
   font-family: JetBrains_Mono;
@@ -10,11 +16,11 @@
 }
 @font-face {
   font-family: KhmerMN;
-  src: url(../fonts/Khmer-MN.ttc);
+  src: url(../../fonts/Khmer-MN.ttc);
 }
 @font-face {
   font-family: LaoMN;
-  src: url(../fonts/Lao-MN.ttc);
+  src: url(../../fonts/Lao-MN.ttc);
 }
 html, body, div, span, applet, object,
 iframe, h1, h2, h3, h4, h5, h6, p, blockquote,
@@ -83,6 +89,15 @@ input, select, textarea {
 }
 
 /* BASIC STYLE */
+.active {
+  font-weight: bold;
+  color: #49c8ff !important;
+}
+
+body {
+  height: 100%;
+}
+
 #title {
   font-family: LaoMN !important;
 }
@@ -93,7 +108,12 @@ footer {
   background-color: #0076a8;
   display: flex !important;
   justify-content: flex-end !important;
-  clear: both;
+}
+
+.footer,
+.push {
+  height: 20px;
+  /* .push must be the same height as .footer */
 }
 
 footer a {
@@ -106,8 +126,20 @@ footer a:hover {
   border-bottom: 1px dotted black;
 }
 
+table {
+  margin: 0 auto;
+  width: 95% !important;
+}
 table th {
   font-weight: bold;
+  background-color: #49c8ff;
+  color: white;
+  border-radius: 0;
+}
+table caption {
+  font-weight: bold;
+  font-size: 20px;
+  margin-bottom: 5px;
 }
 
 nav {
@@ -118,16 +150,30 @@ nav {
   margin-left: 210px;
 }
 
-@media (max-width: 600px) {
+.main {
+  min-height: 100%;
+  height: auto !important;
+  /* This line and the next line are not necessary unless you need IE6 support */
+  height: 100%;
+  margin: 0 auto -20px;
+  /* the bottom margin is the negative value of the footer's height */
+}
+
+@media (max-width: 800px) {
   .main:not(button) {
-    margin-left: 80px !important;
+    margin-left: 60px !important;
   }
 }
 /* END BASIC STYLE */
 /* Layouts */
-*.curve-background {
-  height: 100%;
+.curve-background {
+  min-height: 100%;
   background: linear-gradient(180deg, #ffffff 50%, #00A0E6 50%);
+  border: 1px solid transparent;
+}
+
+html {
+  height: 100%;
 }
 
 /* Components */
@@ -137,11 +183,11 @@ nav {
 }
 
 .login-form {
-  margin: 80px auto;
-  width: 50%;
+  margin: 100px auto;
+  width: 500px;
   height: 600px;
   background-color: white;
-  padding: 40px 80px !important;
+  padding: 40px 40px !important;
 }
 .login-form #title {
   font-size: 40px;
@@ -150,10 +196,9 @@ nav {
   text-align: center;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 800px) {
   .login-form {
-    width: 80% !important;
-    padding: 20px 15px !important;
+    margin: 100px 15px;
   }
 }
 .toast.success {
@@ -164,40 +209,43 @@ nav {
   background-color: red !important;
 }
 
-button {
+button:not(.btn):not(.btn-flat) {
   height: 50px;
   font-weight: bold;
-  font-family: JetBrains_Mono !important;
-  font-size: 20px !important;
+  font-family: JetBrains_Mono;
+  font-size: 20px;
   border: none;
+  height: 50px !important;
+  margin-bottom: 5px;
 }
-button.main {
+button:not(.btn):not(.btn-flat).main {
   background-color: #00A0E6;
   color: white;
 }
-button.info {
+button:not(.btn):not(.btn-flat).info {
   border: 2px solid #00A0E6;
   color: #00A0E6;
 }
-button.alert {
+button:not(.btn):not(.btn-flat).alert {
   border: 2px solid red;
   color: red;
 }
-button.full {
+button:not(.btn):not(.btn-flat).full {
   width: 100%;
 }
-button.medium {
+button:not(.btn):not(.btn-flat).medium {
   width: 50%;
 }
-button.small {
+button:not(.btn):not(.btn-flat).small {
   width: 30%;
 }
 
 .side-nav {
-  float: left;
-  height: 100vh;
   width: 210px;
-  position: relative;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
   z-index: 1;
   background-color: #025072;
   overflow-x: hidden;
@@ -227,9 +275,31 @@ button.small {
   vertical-align: middle;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 800px) {
   .side-nav {
-    width: 80px !important;
+    width: 60px !important;
+  }
+}
+.card {
+  text-align: center;
+  margin: 20px 10px !important;
+  padding: 10px 0px !important;
+}
+
+.title {
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.data {
+  font-size: 30px;
+  line-height: 2;
+}
+
+@media (min-width: 1080px) {
+  .card-container {
+    display: flex;
+    justify-content: space-evenly;
   }
 }
 

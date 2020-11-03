@@ -4,20 +4,21 @@
       <li><a onclick="closeNav()"><i class="material-icons">arrow_back</i></a></li>
     </ul> --}}
     <ul class="right">
-      <li><a class="waves-effect waves-block waves-light toggle-fullscreen" href="javascript:void(0);"><i class="material-icons">settings_overscan</i></a></li>
+      <li><a class="waves-effect waves-block waves-light" onclick="toggleFullScreen()"><i class="material-icons">settings_overscan</i></a></li>
       <li><a id="notifications" onclick="window.alert('Not finished')"><i class="material-icons">notifications</i></a></li>
       <li><a href="/logout"><i class="material-icons">exit_to_app</i></a></li>
     </ul>
   </div>
 </nav>
 
-{{!-- <script>
-  function closeNav() {
-    let sidenav = document.querySelector('.side-nav');
-    let title = document.querySelectorAll('.side-title');
-    let main = document.querySelector('.main');
-
-    sidenav.style.width = '80px';
-    title.style.display = 'none';
+<script>
+  function toggleFullScreen() {
+    if (!document.fullscreenElement) {
+      document.documentElement.requestFullscreen();
+    } else {
+      if (document.exitFullscreen) {
+        document.exitFullscreen();
+      }
+    }
   }
-</script> --}}
+</script>

@@ -1,3 +1,10 @@
+/*!
+ * Copyright (c) 2020. by o0River0o. All rights reserved.
+ * Codes here may not be used for any non-commercial or commercial uses before getting approved by the original author.
+ * Any use of code from these project should declare the original source it's from
+ *
+ */
+
 /* Initailize */
 @import 'lib/vars';
 @import 'lib/fonts';
@@ -5,17 +12,33 @@
 @import 'base/reset';
 
 /* BASIC STYLE */
+.active {
+  font-weight: bold;
+  color: $light-blue !important;
+}
+
+body {
+  height: 100%;
+}
 #title {
   font-family: LaoMN !important;
 }
 
 footer {
+  //position: absolute;
+  //width: 100%;
+  //bottom: 0;
   padding: 10px;
   color: white;
   background-color: $dark-blue;
   display: flex !important;
   justify-content: flex-end !important;
-  clear: both;
+}
+
+.footer,
+.push {
+  height: 20px;
+  /* .push must be the same height as .footer */
 }
 
 footer a {
@@ -29,8 +52,20 @@ footer a:hover {
 }
 
 table {
+  margin: 0 auto;
+  width: 95% !important;
+
   th {
     font-weight: bold;
+    background-color: $light-blue;
+    color: white;
+    border-radius: 0;
+  }
+
+  caption {
+    font-weight: bold;
+    font-size: 20px;
+    margin-bottom: 5px;
   }
 }
 
@@ -42,9 +77,18 @@ nav{
   margin-left: 210px;
 }
 
+.main {
+  min-height: 100%;
+  height: auto !important;
+  /* This line and the next line are not necessary unless you need IE6 support */
+  height: 100%;
+  margin: 0 auto -20px;
+  /* the bottom margin is the negative value of the footer's height */
+}
+
 @media (max-width: $breakpoint-tablet) {
   .main:not(button) {
-    margin-left: 80px !important;
+    margin-left: 60px !important;
   }
 }
 /* END BASIC STYLE */
@@ -58,3 +102,4 @@ nav{
 @import 'components/toast';
 @import 'components/button';
 @import 'components/sidebar';
+@import 'components/cards';

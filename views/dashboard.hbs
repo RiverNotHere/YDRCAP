@@ -1,17 +1,39 @@
 <div class="row">
-  <div class="col l4 m6 s12">
-    <span class="title">New Members Joined</span>
-    <span class="data">{{new_users_added}}</span>
+  <div class="card-container">
+    <div class="card card-stat col l3 m5 s11">
+      <span class="title">New Members Joined</span>
+      <br>
+      <span class="data">{{new_users_added}}</span>
+      <br>
+      <span class="stat">{{{getStat new_users_added new_users_added_prev_period 'month'}}}</span>
+    </div>
+    <div class="card card-stat col l3 m5 s11">
+      <span class="title">New Records Added</span>
+      <br>
+      <span class="data">{{new_records_added}}</span>
+      <br>
+      <span class="stat">{{{getStat new_records_added new_records_added_prev_period 'week'}}}</span>
+    </div>
+    <div class="card card-stat col l3 m5 s11">
+      <span class="title">Traffic</span>
+      <br>
+      <span class="data">{{traffic}}</span>
+      <br>
+      <span class="stat">{{{getStat traffic traffic_prev_period 'day'}}}</span>
+    </div>
+    <div class="card card-stat col l3 m5 s11">
+      <span class="title">Online Users</span>
+      <br>
+      <span class="data">{{total_online}}</span>
+      <br>
+      <span class="stat">{{{getStat total_online total_online_prev_period 'hour'}}}</span>
+    </div>
   </div>
-  <div class="col l4 m6 s12">
-    <span class="title">New Records Added</span>
-    <span class="data">{{new_records_added}}</span>
-  </div>
-  <div class="col l4 m12 s12">
-    <span class="title">Online Users</span>
-    <span class="data">{{total_online}}</span>
-  </div>
-  <div class="col l12 m12 s12">
-    {{> _recordTable}}
+</div>
+<div class="row">
+  <div class="card-container">
+    <div class="card col l12 m12 s12">
+      {{> _recordTable}}
+    </div>
   </div>
 </div>
