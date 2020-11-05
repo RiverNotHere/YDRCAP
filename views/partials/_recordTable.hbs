@@ -15,11 +15,11 @@
     <tbody>
       {{#each records}}
         <tr>
-          <td>{{this.first_name}}</td>
-          <td>{{this.last_name}}</td>
-          <td>{{formatDate this.start_time}}</td>
-          <td>{{formatDate this.end_time}}</td>
-          <td>{{sum this.hours_recorded this.additional_hours}}</td>
+          <td onclick="window.location.href = '/a/edetails?id={{this._id}}'">{{this.first_name}}</td>
+          <td onclick="window.location.href = '/a/edetails?id={{this._id}}'">{{this.last_name}}</td>
+          <td onclick="window.location.href = '/a/edetails?id={{this._id}}'">{{formatDate this.start_time "YYYY-MM-DD hh:mm A"}}</td>
+          <td onclick="window.location.href = '/a/edetails?id={{this._id}}'">{{formatDate this.end_time "YYYY-MM-DD hh:mm A"}}</td>
+          <td onclick="window.location.href = '/a/edetails?id={{this._id}}'">{{sum this.hours_recorded this.additional_hours}}</td>
           <td><button data-target="m-{{this._id}}" class="btn btn-small waves-effect waves-light modal-trigger">Confirm</button></td>
         </tr>
         <!-- Modal Structure -->
@@ -33,7 +33,7 @@
             <form id="f-{{this._id}}" method="POST" action="/a/confirm-rec?id={{this._id}}&coordinator={{../coordinator_name}}">
               <div class="input-field">
                 <label for="ahrs">Additional Hours</label>
-                <input type="number" name="ahrs"/>
+                <input type="text" name="ahrs"/>
               </div>
             </form>
           </div>

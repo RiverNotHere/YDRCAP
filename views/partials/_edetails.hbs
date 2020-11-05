@@ -1,0 +1,149 @@
+<!-- Record Container -->
+{{#if record}}
+  <div class="record-container">
+
+    <!-- Title & Edit Button -->
+    <div class="row">
+      <div class="col l12 m12 s12">
+        <span class="record-title">Record Detail</span>
+        <button class="btn blue right" onclick="window.location.href = '/a/edit-record?id={{record._id}}'"><i class="material-icons">create</i></button>
+      </div>
+    </div>
+
+    <!-- Record Info -->
+    <div class="row">
+      <div class="col l4 m6 s6">
+        <label>Event Type:</label>
+        <input type="text" disabled value="{{record.event_type}}" disabled>
+      </div>
+
+      <div class="col l3 m6 s6">
+        {{#if record.coordinator}}
+          <label>Event Coordinator:</label>
+          <input type="text" disabled value="{{record.coordinator}}">
+        {{else}}
+          <label>Event Coordinator:</label>
+          <input type="text" disabled value="Event not confirmed yet">
+        {{/if}}
+      </div>
+    </div>
+
+
+    <div class="row">
+      <div class="col l4 m6 s6">
+        <label>Start Time:</label>
+        <input type="text" disabled value="{{record.start_time}}">
+      </div>
+      <div class="col l4 m6 s6">
+        <label>End Time:</label>
+        <input type="text" disabled value="{{record.end_time}}">
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col l4 m6 s6">
+        <label>Hours Recorded:</label>
+        <input type="number" disabled value="{{record.hours_recorded}}">
+      </div>
+      <div class="col l4 m6 s6">
+        <label>Additional Hours:</label>
+        <input type="number" disabled value="{{record.additional_hours}}">
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col l12">
+        {{#if record.event_desc}}
+          <label>Event Description:</label>
+          <textarea disabled class="materialize-textarea" data-length="300">{{record.event_desc}}</textarea>
+        {{else}}
+          <input type="text" disabled value="No Description for this event">
+        {{/if}}
+      </div>
+    </div>
+
+    <!-- Record Footer -->
+    <div class="dfooter row">
+      <button class="btn blue" onclick="window.location.href = '/a/dashboard'"><i class="material-icons left">arrow_back</i>Back</button>
+      <button class="btn red modal-trigger b-stat-{{record.status}}" data-target="confirm-delete"><i class="material-icons left">delete</i>Delete</button>
+      <button class="btn modal-trigger {{isshow record.status}}" data-target="confirm-record"><i class="material-icons left">done</i>Confirm</button>
+    </div>
+
+    <!-- Delete Modal Structure -->
+    <div id="confirm-delete" class="modal">
+      <div class="modal-content">
+        <h4>Confirmation</h4>
+        <h6>You sure your want to delete this record? <br>You cannot undo this process</h6>
+      </div>
+      <div class="modal-footer">
+        <button class="modal-close waves-effect waves-red btn-flat">Cancel</button>
+        <button onclick="window.location.href = '/a/delrec?id={{record._id}}'" class="modal-close waves-effect waves-green btn-flat">Yes</button>
+      </div>
+    </div>
+
+    <!-- Confirm Modal Structure -->
+    <div id="confirm-record" class="modal">
+      <div class="modal-content">
+        <h4>Confirm Record</h4>
+        <p>
+          Once you confirmed this record, the time will be added to the user’s profile according to the hours recorded
+          and will be valid until it gets deleted
+        </p>
+        <form id="f-{{record._id}}" method="POST" action="/a/confirm-rec?id={{record._id}}&coordinator={{coordinator_name}}">
+        <div class="input-field">
+          <label for="ahrs">Additional Hours</label>
+          <input type="text" name="ahrs"/>
+        </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button class="modal-close waves-effect waves-green btn-flat">Cancel</button>
+        <button form="f-{{record._id}}" class="modal-close waves-effect waves-green btn-flat">Confirm</button>
+      </div>
+    </div>
+
+  </div>
+{{/if}}
+
+
+<!-- SCRIPTS -->
+
+<!-- Materialize Initialization -->
+<script>
+  M.Modal.init(document.querySelectorAll('.modal'))
+  M.Datepicker.init(document.querySelectorAll('.datepicker'))
+</script>
+
+<!-- Unused Yet -->
+<!--<script>-->
+<!--  function checkopt() {-->
+<!--  let edate = document.getElementById('edate');-->
+<!--  let sdate = document.getElementById('sdate');-->
+<!--  let sdate_label = document.getElementById('sdate-label');-->
+<!--  let selected = document.getElementById("other").selected;-->
+
+<!--  let stime = document.getElementById('stime');-->
+<!--  let etime = document.getElementById('etime');-->
+<!--  let evt_stime = document.getElementById('evt_stime');-->
+<!--  let evt_etime = document.getElementById('evt_etime');-->
+
+<!--  if (selected) {-->
+<!--    edate.style.display = "block";-->
+<!--    sdate.className = "input-field col s3";-->
+<!--    sdate_label.innerHTML = "Start Date";-->
+
+<!--    evt_stime.removeAttribute("required");-->
+<!--    stime.style.display = "none";-->
+<!--    evt_etime.removeAttribute("required");-->
+<!--    etime.style.display = "none";-->
+<!--  } else {-->
+<!--    edate.style.display = "none";-->
+<!--    sdate.className = "input-field col s6";-->
+<!--    sdate_label.innerHTML = "Event Date";-->
+
+<!--    evt_stime.setAttribute("required", "required");-->
+<!--    stime.style.display = "block";-->
+<!--    evt_etime.setAttribute("required", "required");-->
+<!--    etime.style.display = "block";-->
+<!--  }-->
+<!--}</script>-->

@@ -1,0 +1,17 @@
+.record-container {
+  padding: 10px;
+
+  .record-title {
+    font-size: 30px !important;
+    font-weight: bold;
+  }
+
+  .dfooter {
+    display: flex;
+    justify-content: flex-end;
+
+    button {
+      margin: 0 5px;
+    }
+  }
+}

@@ -1,7 +1,7 @@
 /*!
  * Copyright (c) 2020. by o0River0o. All rights reserved.
- * Codes here may not be used for any non-commercial or commercial uses before getting approved by the original author.
- * Any use of code from these project should declare the original source it's from
+ * Codes here may not be used for any non-commercial or commercial uses without getting approved by the original author.
+ * Any use of code from this project should declare the original source it's from
  *
  */
 /* Initailize */
@@ -89,17 +89,22 @@ input, select, textarea {
 }
 
 /* BASIC STYLE */
+body {
+  height: 100%;
+}
+
 .active {
   font-weight: bold;
   color: #49c8ff !important;
 }
 
-body {
-  height: 100%;
-}
-
 #title {
   font-family: LaoMN !important;
+}
+
+/* Nav & Footer */
+nav {
+  background-color: #00A0E6 !important;
 }
 
 footer {
@@ -126,26 +131,46 @@ footer a:hover {
   border-bottom: 1px dotted black;
 }
 
-table {
+/* END Nav & Footer */
+table:not(#recTable) {
   margin: 0 auto;
   width: 95% !important;
 }
-table th {
+table:not(#recTable) th {
   font-weight: bold;
   background-color: #49c8ff;
   color: white;
   border-radius: 0;
 }
-table caption {
+table:not(#recTable) caption {
   font-weight: bold;
   font-size: 20px;
   margin-bottom: 5px;
 }
 
-nav {
-  background-color: #00A0E6 !important;
+/* Record Table Style */
+div#recTable_info {
+  float: left;
 }
 
+div#recTable_paginate {
+  background-color: #00A0E6;
+  padding: 5px;
+  float: right;
+}
+
+div#recTable_paginate a {
+  padding: 0px 5px !important;
+  color: white !important;
+  width: 100% !important;
+}
+
+div#recTable_paginate a:hover {
+  text-decoration: underline;
+}
+
+/* END Record Table Style */
+/* Main Container */
 .main:not(button) {
   margin-left: 210px;
 }
@@ -164,6 +189,7 @@ nav {
     margin-left: 60px !important;
   }
 }
+/* END Main Container */
 /* END BASIC STYLE */
 /* Layouts */
 .curve-background {
@@ -301,6 +327,20 @@ button:not(.btn):not(.btn-flat).small {
     display: flex;
     justify-content: space-evenly;
   }
+}
+.record-container {
+  padding: 10px;
+}
+.record-container .record-title {
+  font-size: 30px !important;
+  font-weight: bold;
+}
+.record-container .dfooter {
+  display: flex;
+  justify-content: flex-end;
+}
+.record-container .dfooter button {
+  margin: 0 5px;
 }
 
 /*# sourceMappingURL=min.css.map */

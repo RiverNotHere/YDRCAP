@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2020. by o0River0o. All rights reserved.
- * Codes here may not be used for any non-commercial or commercial uses before getting approved by the original author.
- * Any use of code from these project should declare the original source it's from
+ * Codes here may not be used for any non-commercial or commercial uses without getting approved by the original author.
+ * Any use of code from this project should declare the original source it's from
  *
  */
 
@@ -16,7 +16,6 @@ const Config = require('../models/Config')
 const VUsers = require('../models/VUsers')
 
 const moment = require('moment')
-
 const cid = "5f83a19caed5b31337810f36"
 
 /*
@@ -51,7 +50,7 @@ router.get('/dashboard', ensureAuth, (req, res) => {
 @desc Manage Account
 @route GET /a/manage-accounts
 */
-router.get('/manage-accounts', (req, res) => {
+router.get('/manage-accounts', ensureAuth, (req, res) => {
   res.render('manage-accounts', {
     maccounts: 'active',
   })
@@ -61,20 +60,86 @@ router.get('/manage-accounts', (req, res) => {
 @desc Records
 @route GET /a/records
 */
-router.get('/records', (req, res) => {
-  res.render('records', {
-    records: 'active',
-  })
+router.get('/records', ensureAuth,(req, res) => {
+  let cname = req.user.first_name + " " + req.user.last_name
+  Records.find({}).lean().then(records => {
+    console.log(records)
+    console.log(cname)
+    res.render('records', {
+      srecords: 'active',
+      records: records,
+      coordinator_name: cname,
+    })
+  }).catch(err => console.log(err))
 })
 
 /*
 @desc Profile Settings
 @route GET /a/profile
 */
-router.get('/profile', (req, res) => {
+router.get('/profile', ensureAuth, (req, res) => {
   res.render('profile', {
     profile: 'active',
   })
+})
+
+/*
+@desc  View Record
+@route GET /a/edetails?id={any}
+*/
+router.get('/edetails', ensureAuth, (req, res) => {
+  let cname = req.user.first_name + " " + req.user.last_name
+  Records.findById(req.query.id).lean().then(record => {
+    console.log(record)
+    if(record) {
+      res.render('edetails', {
+        record: record,
+        coordinator_name: cname,
+      })
+    }else {
+      res.redirect('/a/dashboard');
+    }
+  })
+})
+
+/*
+@desc  Edit Record
+@route GET || POST /a/edit-record?id={any}
+*/
+router.get('/edit-record', ensureAuth, (req, res) => {
+  // let cname = req.user.first_name + " " + req.user.last_name
+  Records.findById(req.query.id).lean().then(record => {
+    console.log(record)
+    if(record) {
+      res.render('edit-record', {
+        record: record,
+        // coordinator_name: cname,
+      })
+    }else {
+      res.redirect('/a/dashboard');
+    }
+  })
+})
+
+router.post('/edit-record', ensureAuth, (req, res) => {
+  Records.findByIdAndUpdate(req.query.id, req.body).then(record => {
+    console.log(record);
+    if(record) {
+      req.flash('success_msg', 'Changes successfully saved');
+      res.redirect( `/a/edetails?id=${req.query.id}`)
+    }
+  }).catch(err => console.log(err))
+})
+
+/*
+@desc  Delete Record
+@route GET /a/delrec?id={any}
+*/
+router.get('/delrec',  ensureAuth, (req, res) => {
+  Records.findByIdAndDelete(req.query.id).then(result => {
+    req.flash('success_msg', 'Record successfully deleted')
+    res.redirect('/a/records')
+  }).catch(err => console.log(err))
 })
 
 
@@ -82,16 +147,16 @@ router.get('/profile', (req, res) => {
 @desc Confirm Record
 @route POST /a/confirm-rec?id={recid}&coordinator={coordinator}
 */
-router.post('/confirm-rec', (req, res) => {
+router.post('/confirm-rec', ensureAuth, (req, res) => {
   console.log('id: '+req.query.id+'|coordinator: '+req.query.coordinator)
+  let backURL = req.header('Referer') || '/';
   console.log(req.body)
   if(req.body.ahrs) {
-    let additional_hours = req.body.ahrs;
-    Records.findByIdAndUpdate(req.query.id, { $set: { status: 1, coordinator: req.query.coordinator }, $inc: { additional_hours: req.body.ahrs } })
+    Records.findByIdAndUpdate(req.query.id, { $set: { status: 1, coordinator: req.query.coordinator }, $inc: { additional_hours: parseFloat(req.body.ahrs) } })
         .then(record => {
           console.log("userid: "+record.userid)
           VUsers.findOneAndUpdate({ userid: record.userid }, { $inc: { total_hours: record.additional_hours + record.hours_recorded } })
-              .then(user => { console.log(user); res.redirect('/a/dashboard') })
+              .then(user => { console.log(user); req.flash('success_msg', 'Record confirmed'); res.redirect(backURL) })
               .catch(err => console.log(err))
         })
         .catch(err => console.log(err))
@@ -100,7 +165,7 @@ router.post('/confirm-rec', (req, res) => {
         .then(record => {
           console.log("userid: "+record.userid)
           VUsers.findOneAndUpdate({ userid: record.userid }, { $inc: { total_hours: record.additional_hours + record.hours_recorded } })
-              .then(user => { console.log(user); res.redirect('/a/dashboard') })
+              .then(user => { console.log(user); req.flash('success_msg', 'Record confirmed'); res.redirect(backURL) })
               .catch(err => console.log(err))
         })
         .catch(err => console.log(err))
@@ -135,6 +200,8 @@ async function updateTraffic() {
       .then(res => console.log(res))
       .catch(err => console.log(err))
 }
+
+// Timers
 setInterval(updateNewUsers, moment.duration(24, 'days'))
 setInterval(updateNewRecords, moment.duration(1, 'weeks'))
 setInterval(updateTraffic, moment.duration(1, 'days'))

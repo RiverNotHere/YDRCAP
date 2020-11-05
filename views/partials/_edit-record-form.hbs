@@ -1,0 +1,74 @@
+{{#if record}}
+  <div class="record-container">
+  <form id="edit-record-form" method="POST" action="/a/edit-record?id={{record._id}}">
+      <div class="row">
+        <div class="col l12 m12 s12">
+          <span class="record-title">Edit Record</span>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col l4 m6 s6">
+          <label>Event Type:</label>
+          <input type="text" disabled value="{{record.event_type}}" disabled>
+        </div>
+
+        <div class="col l3 m6 s6">
+          {{#if record.coordinator}}
+            <label>Event Coordinator:</label>
+            <input type="text" disabled value="{{record.coordinator}}">
+          {{else}}
+            <label>Event Coordinator:</label>
+            <input type="text" disabled value="Event not confirmed yet">
+          {{/if}}
+        </div>
+      </div>
+
+
+      <div class="row">
+        <div class="col l4 m6 s6">
+          <label>Start Time:</label>
+          <input name="start_time" type="text" value="{{record.start_time}}">
+        </div>
+        <div class="col l4 m6 s6">
+          <label>End Time:</label>
+          <input name="end_time" type="text" value="{{record.end_time}}">
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col l4 m6 s6">
+          <label>Hours Recorded:</label>
+          <input name="hours_recorded" type="text" value="{{record.hours_recorded}}">
+        </div>
+        <div class="col l4 m6 s6">
+          <label>Additional Hours:</label>
+          <input name="additional_hours" type="text" value="{{record.additional_hours}}">
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col l12">
+          {{#if record.event_desc}}
+            <label>Event Description:</label>
+            <textarea name="event_desc" class="materialize-textarea" data-length="300">{{record.event_desc}}</textarea>
+          {{else}}
+            <input type="text" value="No Description for this event">
+          {{/if}}
+        </div>
+      </div>
+  </form>
+
+    <div class="dfooter row">
+      <button class="btn blue" onclick="window.location.href = '/a/edetails?id={{record._id}}'"><i class="material-icons left">arrow_back</i>Back</button>
+      <button type="submit" class="btn" form="edit-record-form"><i class="material-icons left">save</i>Save</button>
+    </div>
+  </div>
+
+  </div>
+{{/if}}
+
+<script>
+  M.Modal.init(document.querySelectorAll('.modal'))
+  // M.Datepicker.init(document.querySelectorAll('.datepicker'))
+</script>

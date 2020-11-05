@@ -1,7 +1,7 @@
 /*!
  * Copyright (c) 2020. by o0River0o. All rights reserved.
- * Codes here may not be used for any non-commercial or commercial uses before getting approved by the original author.
- * Any use of code from these project should declare the original source it's from
+ * Codes here may not be used for any non-commercial or commercial uses without getting approved by the original author.
+ * Any use of code from this project should declare the original source it's from
  *
  */
 
@@ -12,22 +12,26 @@
 @import 'base/reset';
 
 /* BASIC STYLE */
+body {
+  height: 100%;
+}
+
+//Font Style (Ungrouped)
 .active {
   font-weight: bold;
   color: $light-blue !important;
 }
 
-body {
-  height: 100%;
-}
 #title {
   font-family: LaoMN !important;
 }
 
+/* Nav & Footer */
+nav{
+  background-color: $blue !important;
+}
+
 footer {
-  //position: absolute;
-  //width: 100%;
-  //bottom: 0;
   padding: 10px;
   color: white;
   background-color: $dark-blue;
@@ -35,10 +39,11 @@ footer {
   justify-content: flex-end !important;
 }
 
+// Sticky footer
+// -> push footer down when content was over the height of the page to make it stay to the bottom
 .footer,
 .push {
-  height: 20px;
-  /* .push must be the same height as .footer */
+  height: 20px; /* .push must be the same height as .footer */
 }
 
 footer a {
@@ -51,7 +56,10 @@ footer a:hover {
   border-bottom: 1px dotted black;
 }
 
-table {
+/* END Nav & Footer */
+
+// Table
+table:not(#recTable) {
   margin: 0 auto;
   width: 95% !important;
 
@@ -69,21 +77,39 @@ table {
   }
 }
 
-nav{
-  background-color: $blue !important;
+/* Record Table Style */
+
+div#recTable_info {
+  float: left;
 }
 
+div#recTable_paginate {
+  background-color: #00A0E6;
+  padding: 5px;
+  float: right;
+}
+div#recTable_paginate a{
+  padding: 0px 5px !important;
+  color: white !important;
+  width:100% !important;
+}
+
+div#recTable_paginate a:hover{
+  text-decoration: underline;
+}
+
+/* END Record Table Style */
+
+/* Main Container */
 .main:not(button) {
   margin-left: 210px;
 }
 
 .main {
   min-height: 100%;
-  height: auto !important;
-  /* This line and the next line are not necessary unless you need IE6 support */
+  height: auto !important; /* This line and the next line are not necessary unless you need IE6 support */
   height: 100%;
-  margin: 0 auto -20px;
-  /* the bottom margin is the negative value of the footer's height */
+  margin: 0 auto -20px; /* the bottom margin is the negative value of the footer's height */
 }
 
 @media (max-width: $breakpoint-tablet) {
@@ -91,6 +117,8 @@ nav{
     margin-left: 60px !important;
   }
 }
+/* END Main Container */
+
 /* END BASIC STYLE */
 
 /* Layouts */
@@ -103,3 +131,4 @@ nav{
 @import 'components/button';
 @import 'components/sidebar';
 @import 'components/cards';
+@import 'components/record-details';

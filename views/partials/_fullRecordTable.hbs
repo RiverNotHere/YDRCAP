@@ -1,0 +1,155 @@
+<!-- Search Bar -->
+<div class="row">
+  <div class="col l4 m4 s12 offset-l8 offset-m8">
+    <div class="input-field">
+      <i class="material-icons prefix">search</i>
+      <input id="searchBox" type="text" placeholder="search for records...">
+    </div>
+  </div>
+</div>
+
+<!-- NOT FINISHED -->
+<!--  <div class="col l1 m2 s6">-->
+<!--    <div class="input-field">-->
+<!--      <a href="" class="btn blue">Import</a>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--  <div class="col l1 m2 s6">-->
+<!--    <div class="input-field">-->
+<!--      <a href="" class="btn blue">Export</a>-->
+<!--    </div>-->
+<!--  </div>-->
+
+<div class="row">
+  <div class="col l2 m2 s12">
+    <div class="input-field">
+      <a href="" class="btn blue"><i class="material-icons left">playlist_add</i>New Record</a>
+    </div>
+  </div>
+  <!-- New Record Modal -->
+  <div id="m-{{this._id}}" class="modal">
+    <div class="modal-content">
+      <h4>Confirm Record</h4>
+      <p>
+        Once you confirmed this record, the time will be added to the user’s profile according to the hours recorded
+        and will be valid until it gets deleted
+      </p>
+      <form id="f-{{this._id}}" method="POST" action="/a/confirm-rec?id={{this._id}}&coordinator={{../coordinator_name}}">
+      <div class="input-field">
+        <label for="ahrs">Additional Hours</label>
+        <input type="text" name="ahrs"/>
+      </div>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button class="modal-close waves-effect waves-green btn-flat">Cancel</button>
+      <button form="f-{{this._id}}" class="modal-close waves-effect waves-green btn-flat">Confirm</button>
+    </div>
+  </div>
+
+  <!-- Data Table -->
+  <div class="col l12 m12 s11">
+    <table id="recTable" class="highlight">
+      <thead>
+        <tr id="th" style="font-weight: bold">
+          <th>Userid</th>
+          <th>First Name</th>
+          <th class="hide-on-med-and-down">Last Name</th>
+          <th class="hide-on-med-and-down">Event Type</th>
+          <th>Start Date <span class="hide-on-med-and-down">(PST)</span></th>
+          <th>Total Hours Recorded</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      {{#if records}}
+      <tbody>
+      {{#each records}}
+          <tr>
+            <td onclick="window.location.href = '/a/edetails?id={{this._id}}'">{{this.userid}}</td>
+            <td onclick="window.location.href = '/a/edetails?id={{this._id}}'">{{this.first_name}}</td>
+            <td class="hide-on-med-and-down" onclick="window.location.href = '/a/edetails?id={{this._id}}'">{{this.last_name}}</td>
+            <td class="hide-on-med-and-down" onclick="window.location.href = '/a/edetails?id={{this._id}}'">{{this.event_type}}</td>
+            <td onclick="window.location.href = '/a/edetails?id={{this._id}}'">{{formatDate this.start_time "YYYY-MM-DD"}}</td>
+            <td onclick="window.location.href = '/a/edetails?id={{this._id}}'">{{sum this.hours_recorded this.additional_hours}}</td>
+            <td>
+              <button data-target="m-{{this._id}}" class="btn btn-small waves-effect waves-light modal-trigger {{isshow this.status}}">
+                <i class="material-icons">done</i>
+              </button>
+              <button onclick="window.location.href = '/a/edit-record?id={{this._id}}'" class="btn btn-small waves-effect waves-light modal-trigger blue">
+                <i class="material-icons">edit</i>
+              </button>
+              <button data-target="d-{{this._id}}" class="btn btn-small waves-effect waves-light modal-trigger red">
+                <i class="material-icons">delete</i>
+              </button>
+            </td>
+          </tr>
+
+          <!-- Confirm Modal Structure -->
+          <div id="d-{{this._id}}" class="modal">
+            <div class="modal-content">
+              <h4>Confirmation</h4>
+              <h6>You sure your want to delete this record? <br>You cannot undo this process</h6>
+            </div>
+            <div class="modal-footer">
+              <button class="modal-close waves-effect waves-red btn-flat">Cancel</button>
+              <button onclick="window.location.href = '/a/delrec?id={{this._id}}'" class="modal-close waves-effect waves-green btn-flat">Yes</button>
+            </div>
+          </div>
+
+          <!-- Delete Modal Structure -->
+          <div id="m-{{this._id}}" class="modal">
+            <div class="modal-content">
+              <h4>Confirm Record</h4>
+              <p>
+                Once you confirmed this record, the time will be added to the user’s profile according to the hours recorded
+                and will be valid until it gets deleted
+              </p>
+              <form id="f-{{this._id}}" method="POST" action="/a/confirm-rec?id={{this._id}}&coordinator={{../coordinator_name}}">
+              <div class="input-field">
+                <label for="ahrs">Additional Hours</label>
+                <input type="text" name="ahrs"/>
+              </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button class="modal-close waves-effect waves-green btn-flat">Cancel</button>
+              <button form="f-{{this._id}}" class="modal-close waves-effect waves-green btn-flat">Confirm</button>
+            </div>
+          </div>
+      {{/each}}
+      </tbody>
+      {{/if}}
+    </table>
+  </div>
+</div>
+
+<!-- CDN IMPORT -->
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.21/js/dataTables.material.min.js" integrity="sha512-QlmLkAfo4B1hJMd6K0Z0lFlZbgTrPGKsWp2vi5gDSrKMeDZfYPM02ovNcvs5k/2S84gH1F0VCDCPsSg/p4RX1A==" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.21/js/jquery.dataTables.min.js" integrity="sha512-BkpSL20WETFylMrcirBahHfSnY++H2O1W+UnEEO4yNIl+jI2+zowyoGJpbtk6bx97fBXf++WJHSSK2MV4ghPcg==" crossorigin="anonymous"></script>
+
+<!-- SCRIPTS -->
+
+<!-- Data Table Init & Config -->
+<script>
+  $(document).ready(function() {
+    $('#recTable').DataTable();
+    $('#recTable_length').hide();
+    $('#recTable_filter').hide();
+  })
+</script>
+
+<!-- Search Table -->
+<script>
+  $("#searchBox").on("keyup", function() {
+    let value = $(this).val().toLowerCase();
+    $("#recTable tr:not(#th)").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+</script>
+
+<!-- Materialize Initialize -->
+<script>
+  M.Modal.init(document.querySelectorAll('.modal'))
+</script>

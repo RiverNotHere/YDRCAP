@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2020. by o0River0o. All rights reserved.
- * Codes here may not be used for any non-commercial or commercial uses before getting approved by the original author.
- * Any use of code from these project should declare the original source it's from
+ * Codes here may not be used for any non-commercial or commercial uses without getting approved by the original author.
+ * Any use of code from this project should declare the original source it's from
  *
  */
 
@@ -51,8 +51,7 @@ app.engine('.hbs', exphbs({
   defaultLayout: 'main',
   extname: '.hbs',
   helpers: {
-    formatDate: function (datetime) {
-      let format = "MM-DD-YYYY hh:mm A";
+    formatDate: function (datetime, format) {
       return moment(datetime).format(format);
     },
     switch: function (val) {
@@ -84,6 +83,13 @@ app.engine('.hbs', exphbs({
         return `<font color="red"><i class="material-icons">arrow_downward</i> ${Math.abs(perc)}% since ${period}</font>`
       }else {
         return `<font color="green"><i class="material-icons">arrow_upward</i> ${Math.abs(perc)}% since ${period}</font>`
+      }
+    },
+    isshow: function(status) {
+      if (status == 0) {
+        return ''
+      } else {
+        return 'hide'
       }
     }
   }
