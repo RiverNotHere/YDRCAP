@@ -72,6 +72,9 @@ typings/
 *.env
 .env.test
 
+# Map files
+*.map
+
 # Jest test files
 *.test.js
 
