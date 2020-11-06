@@ -16,6 +16,8 @@ const Config = require('../models/Config')
 const VUsers = require('../models/VUsers')
 
 const moment = require('moment')
+const CryptoJS = require('crypto-js')
+
 const cid = "5f83a19caed5b31337810f36"
 
 /*
@@ -85,18 +87,54 @@ router.get('/records', ensureAuth,(req, res) => {
 @route GET /a/profile
 */
 router.get('/profile', ensureAuth, async(req, res) => {
+  let profile = await User.findOne({ userid: req.user.userid }).lean()
+  console.log(profile)
   res.render('profile', {
     account_page: req.user.account_page,
     profile: 'active',
-    user: JSON.stringify(req.user)
+    user: profile
   })
 })
 
 /*--------------- DATABASE ACTIONS ---------------*/
 
 /*
+@desc Change Password
+@route POST /a/change-password?id={userid}
+*/
+router.post('/change-password', ensureAuth, async(req, res) => {
+  console.log(req.body)
+  // Validate
+  let ori_profile = await User.findById(req.query.id)
+  if(CryptoJS.SHA256(req.body.opassword).toString() !== ori_profile.password) {
+
+    req.flash('error_msg', 'Original password incorrect')
+    res.redirect('/a/profile')
+
+  } else if(req.body.npassword !== req.body.cnpassword) {
+
+    req.flash('error_msg', 'New password and Confirm New Password should be match')
+    res.redirect('/a/profile')
+
+  } else {
+
+    let new_profile = await
+        User.findByIdAndUpdate(req.query.id, {
+          $set: {
+            password: CryptoJS.SHA256(req.body.npassword).toString()
+          }
+        })
+
+    if(new_profile) {
+      req.flash('success_msg', 'Password successfully changed')
+      res.redirect('/a/profile')
+    }
+  }
+})
+
+/*
 @desc Delete User
-@route GET/POST /u/deluser?id={userid}
+@route GET/POST /a/deluser?id={userid}
 */
 router.get('/deluser', ensureAuth, (req, res) => {
   console.log(req.query.id);
@@ -108,7 +146,7 @@ router.get('/deluser', ensureAuth, (req, res) => {
 
 /*
 @desc Edit User
-@route /u/edit-account?id={userid}
+@route GET/POST /a/edit-account?id={userid}
 */
 router.get('/edit-account', ensureAuth, (req, res) => {
   User.findById(req.query.id).lean().then(user => {
@@ -124,15 +162,24 @@ router.get('/edit-account', ensureAuth, (req, res) => {
   })
 })
 
-router.post('/edit-account', ensureAuth, (req, res) => {
+router.post('/edit-account', ensureAuth, async(req, res) => {
   let backURL = req.header('Referer') || '/';
-  User.findByIdAndUpdate(req.query.id, req.body).then(user => {
-    console.log(user)
-    if(user) {
-      req.flash('success_msg', 'Changes successfully saved')
-      res.redirect(`/u/${req.query.id}`)
-    }
-  }).catch(err => console.log(err))
+
+  // Validate
+  let isEmailExist = await User.findOne({ email: req.body.email })
+
+  if (isEmailExist && isEmailExist._id != req.query.id) {
+    req.flash('error_msg', 'Email already registered, please use another one')
+    res.redirect(backURL)
+  }else {
+    User.findByIdAndUpdate(req.query.id, req.body).then(user => {
+      console.log(user)
+      if(user) {
+        req.flash('success_msg', 'Changes successfully saved')
+        res.redirect(backURL)
+      }
+    }).catch(err => console.log(err))
+  }
 })
 
 const evttypes = {
