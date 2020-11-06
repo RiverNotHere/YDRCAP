@@ -1,0 +1,161 @@
+<!-- Search Bar -->
+<div class="row">
+  <div class="col l4 m4 s12 offset-l8 offset-m8">
+    <div class="input-field">
+      <i class="material-icons prefix">search</i>
+      <input id="searchBox" type="text" placeholder="search for users...">
+    </div>
+  </div>
+</div>
+
+<!-- NOT FINISHED -->
+<!--  <div class="col l1 m2 s6">-->
+<!--    <div class="input-field">-->
+<!--      <a href="" class="btn blue">Import</a>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--  <div class="col l1 m2 s6">-->
+<!--    <div class="input-field">-->
+<!--      <a href="" class="btn blue">Export</a>-->
+<!--    </div>-->
+<!--  </div>-->
+
+<div class="row">
+  <div class="col l2 m2 s12">
+    <div class="input-field">
+      <a data-target="new-rec" class="btn blue modal-trigger"><i class="material-icons left">group_add</i>New Account</a>
+    </div>
+  </div>
+  <!-- New Record Modal -->
+  <div id="new-rec" class="modal">
+    <div class="modal-content">
+      <h4>New Record</h4>
+      <br>
+      <form action="/u/new" method="POST" id="new-user">
+        <div class="input-field">
+          <label>Email</label>
+          <input type="email" required name="email">
+        </div>
+
+        <div class="input-field">
+          <select name="role" required>
+            <option value="" disabled selected>Please Select</option>
+            <option value="Administrator">Administrator</option>
+            <option value="Coordinator">Coordinator</option>
+          </select>
+          <label>Role</label>
+        </div>
+
+        <div class="input-field">
+          <label>First Name</label>
+          <input type="text" required name="first_name">
+        </div>
+
+        <div class="input-field">
+          <label>Middle Name</label>
+          <input type="text" name="middle_name">
+        </div>
+
+        <div class="input-field">
+          <label>Last Name</label>
+          <input type="text" required name="last_name">
+        </div>
+
+        <div class="input-field">
+          <label>Password</label>
+          <input type="password" required name="password">
+        </div>
+
+        <div class="input-field">
+          <label>Confirm Password</label>
+          <input type="password" required name="cpassword">
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button class="modal-close waves-effect waves-green btn-flat">Cancel</button>
+      <button form="new-user" type="submit" class="modal-close waves-effect waves-green btn-flat">Add</button>
+    </div>
+  </div>
+
+  <!-- Data Table -->
+  <div class="col l12 m12 s11">
+    <table id="recTable" class="highlight">
+      <thead>
+      <tr id="th" style="font-weight: bold">
+        <th>Userid</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th class="hide-on-med-and-down">Email Address</th>
+        <th>Role</th>
+        <th>Action</th>
+      </tr>
+      </thead>
+      {{#if users}}
+        <tbody>
+        {{#each users}}
+          <tr>
+            <td onclick="window.location.href = '/u/{{this._id}}'">{{this.userid}}</td>
+            <td onclick="window.location.href = '/u/{{this._id}}'">{{this.first_name}}</td>
+            <td onclick="window.location.href = '/u/{{this._id}}'">{{this.last_name}}</td>
+            <td onclick="window.location.href = '/u/{{this._id}}'" class="hide-on-med-and-down">{{this.email}}</td>
+            <td onclick="window.location.href = '/u/{{this._id}}'">{{this.role}}</td>
+            <td>
+              <button onclick="window.location.href = '/a/edit-account?id={{this._id}}'" class="btn btn-small waves-effect waves-light modal-trigger blue">
+              <i class="material-icons">edit</i>
+              </button>
+              <button data-target="d-{{this._id}}" class="btn btn-small waves-effect waves-light modal-trigger red">
+                <i class="material-icons">delete</i>
+              </button>
+            </td>
+          </tr>
+
+          <!-- Delete Modal Structure -->
+          <div id="d-{{this._id}}" class="modal">
+            <div class="modal-content">
+              <h4>Confirmation</h4>
+              <h6>You sure your want to delete this user? <br>You cannot undo this process</h6>
+            </div>
+            <div class="modal-footer">
+              <button class="modal-close waves-effect waves-red btn-flat">Cancel</button>
+              <button onclick="window.location.href = '/a/deluser?id={{this._id}}'" class="modal-close waves-effect waves-green btn-flat">Yes</button>
+            </div>
+          </div>
+        {{/each}}
+        </tbody>
+      {{/if}}
+    </table>
+  </div>
+</div>
+
+<!-- CDN IMPORT -->
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.21/js/dataTables.material.min.js" integrity="sha512-QlmLkAfo4B1hJMd6K0Z0lFlZbgTrPGKsWp2vi5gDSrKMeDZfYPM02ovNcvs5k/2S84gH1F0VCDCPsSg/p4RX1A==" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.21/js/jquery.dataTables.min.js" integrity="sha512-BkpSL20WETFylMrcirBahHfSnY++H2O1W+UnEEO4yNIl+jI2+zowyoGJpbtk6bx97fBXf++WJHSSK2MV4ghPcg==" crossorigin="anonymous"></script>
+
+<!-- SCRIPTS -->
+
+<!-- Data Table Init & Config -->
+<script>
+  $(document).ready(function() {
+    $('#recTable').DataTable();
+    $('#recTable_length').hide();
+    $('#recTable_filter').hide();
+  })
+</script>
+
+<!-- Search Table -->
+<script>
+  $("#searchBox").on("keyup", function() {
+    let value = $(this).val().toLowerCase();
+    $("#recTable tr:not(#th)").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+</script>
+
+<!-- Materialize Initialize -->
+<script>
+  M.Modal.init(document.querySelectorAll('.modal'))
+  M.FormSelect.init(document.querySelectorAll('select'))
+</script>

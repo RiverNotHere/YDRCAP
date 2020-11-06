@@ -1,0 +1,61 @@
+<!-- Record Container -->
+{{#if user}}
+  <div class="record-container">
+
+    <!-- Title & Edit Button -->
+    <div class="row">
+      <div class="col l12 m12 s12">
+        <span class="record-title">Edit Account</span>
+      </div>
+    </div>
+
+    <form method="POST" action="/a/edit-account?id={{user._id}}" id="edit-account-form">
+    <!-- Account Info -->
+    <div class="row">
+      <div class="col l4 m6 s6">
+        <label>Userid:</label>
+        <input type="text" disabled value="{{user.userid}}">
+      </div>
+      <div class="col l4 m6 s6">
+        <label>Role:</label>
+        <input type="text" disabled value="{{user.role}}">
+      </div>
+      <div class="col l4 m6 s6">
+        <label>Email Address:</label>
+        <input type="email" value="{{user.email}}" name="email">
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col l4 m4 s12">
+        <label>First Name:</label>
+        <input type="text" value="{{user.first_name}}" name="first_name">
+      </div>
+      <div class="col l4 m4 s12">
+        <label>Middle Name:</label>
+        <input type="text" value="{{user.middle_name}}" name="middle_name">
+      </div>
+      <div class="col l4 m4 s12">
+        <label>Last Name:</label>
+        <input type="text" value="{{user.last_name}}" name="last_name">
+      </div>
+    </div>
+    </form>
+
+    <!-- Footer -->
+    <div class="dfooter row">
+      <button class="btn blue" onclick="window.location.href = '/u/{{user._id}}'"><i class="material-icons left">arrow_back</i>Back</button>
+      <button type="submit" form="edit-account-form" class="btn"><i class="material-icons left">save</i>Save</button>
+    </div>
+
+  </div>
+{{/if}}
+
+
+<!-- SCRIPTS -->
+
+<!-- Materialize Initialization -->
+<script>
+  M.Modal.init(document.querySelectorAll('.modal'))
+  M.Datepicker.init(document.querySelectorAll('.datepicker'))
+</script>

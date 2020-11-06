@@ -1,1 +1,58 @@
-<h3>Profile Setting</h3>
+{{#user}}
+  {{userid}}
+{{/user}}
+<div class="content-box">
+  <h4>Profile Settings</h4>
+  <div>
+    <form action="/a/"></form>
+    <div class="row">
+      <div class="input-field col l6 m6 s12">
+        <label>Userid:</label>
+        <input type="text" disabled value="{{user.userid}}">
+      </div>
+      <div class="input-field col l6 m6 s12">
+        <label>Role:</label>
+        <input type="text" disabled value="{{user.role}}">
+      </div>
+      <div class="input-field col l12 m12 s12">
+        <label>Email Address:</label>
+        <input type="email" value="{{user.email}}" name="email">
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="input-field col l4 m4 s12">
+        <label>First Name:</label>
+        <input type="text" value="{{user.first_name}}" name="first_name">
+      </div>
+      <div class="input-field col l4 m4 s12">
+        <label>Middle Name:</label>
+        <input type="text" value="{{user.middle_name}}" name="middle_name">
+      </div>
+      <div class="input-field col l4 m4 s12">
+        <label>Last Name:</label>
+        <input type="text" value="{{user.last_name}}" name="last_name">
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="content-box">
+  <h4>Change Password</h4>
+  <div>
+    <div class="row">
+      <div class="input-field col s12">
+        <label>First Name:</label>
+        <input type="text" value="{{user.first_name}}" name="first_name">
+      </div>
+      <div class="input-field col s12">
+        <label>Middle Name:</label>
+        <input type="text" value="{{user.middle_name}}" name="middle_name">
+      </div>
+      <div class="input-field col s12">
+        <label>Last Name:</label>
+        <input type="text" value="{{user.last_name}}" name="last_name">
+      </div>
+    </div>
+  </div>
+</div>

@@ -30,6 +30,7 @@ router.get('/dashboard', ensureAuth, (req, res) => {
       let cname = req.user.first_name + " " + req.user.last_name
       console.log(cname)
       res.render('dashboard', {
+        account_page: req.user.account_page,
         dashboard: 'active',
         records: records,
         coordinator_name: cname,
@@ -51,9 +52,14 @@ router.get('/dashboard', ensureAuth, (req, res) => {
 @route GET /a/manage-accounts
 */
 router.get('/manage-accounts', ensureAuth, (req, res) => {
-  res.render('manage-accounts', {
-    maccounts: 'active',
-  })
+  User.find({}).lean().then(users => {
+    console.log(users)
+    res.render('manage-accounts', {
+      account_page: req.user.account_page,
+      maccounts: 'active',
+      users: users,
+    })
+  }).catch(err => console.log(err))
 })
 
 /*
@@ -66,6 +72,7 @@ router.get('/records', ensureAuth,(req, res) => {
     console.log(records)
     console.log(cname)
     res.render('records', {
+      account_page: req.user.account_page,
       srecords: 'active',
       records: records,
       coordinator_name: cname,
@@ -77,10 +84,123 @@ router.get('/records', ensureAuth,(req, res) => {
 @desc Profile Settings
 @route GET /a/profile
 */
-router.get('/profile', ensureAuth, (req, res) => {
+router.get('/profile', ensureAuth, async(req, res) => {
   res.render('profile', {
+    account_page: req.user.account_page,
     profile: 'active',
+    user: JSON.stringify(req.user)
   })
+})
+
+/*--------------- DATABASE ACTIONS ---------------*/
+
+/*
+@desc Delete User
+@route GET/POST /u/deluser?id={userid}
+*/
+router.get('/deluser', ensureAuth, (req, res) => {
+  console.log(req.query.id);
+  User.findByIdAndDelete(req.query.id).then(user => {
+    req.flash('success_msg', 'Account successfully deleted')
+    res.redirect('/a/manage-accounts')
+  }).catch(err => console.log(err))
+})
+
+/*
+@desc Edit User
+@route /u/edit-account?id={userid}
+*/
+router.get('/edit-account', ensureAuth, (req, res) => {
+  User.findById(req.query.id).lean().then(user => {
+    console.log(user)
+    if(user) {
+      res.render('edit-account', {
+        user: user,
+        // coordinator_name: cname,
+      })
+    }else {
+      res.redirect('/a/dashboard');
+    }
+  })
+})
+
+router.post('/edit-account', ensureAuth, (req, res) => {
+  let backURL = req.header('Referer') || '/';
+  User.findByIdAndUpdate(req.query.id, req.body).then(user => {
+    console.log(user)
+    if(user) {
+      req.flash('success_msg', 'Changes successfully saved')
+      res.redirect(`/u/${req.query.id}`)
+    }
+  }).catch(err => console.log(err))
+})
+
+const evttypes = {
+  0: "Other",
+  1: "Normal Zoom Class Teaching",
+  2: "Chinese Daka Teaching",
+  4: "Chinese Daka Training",
+  5: "Math Mammoth Study Group Teaching",
+  6: "Math Mammoth Study Group Teacher Meeting",
+  7: "English Study Group Teaching",
+  8: "Normal Zoom Class Co-Hosting",
+}
+/*
+@desc Add Record
+@route POST /a/newrec
+*/
+router.post('/newrec', ensureAuth, async(req, res) => {
+  console.log(req.body);
+  let isahrs, stime, etime;
+  console.log(req.body.evt_type)
+  switch (parseInt(req.body.evt_type)) {
+    case 0:
+    case 3:
+    case 4:
+    case 8:
+      isahrs = false;
+      break;
+    default:
+      isahrs = true;
+      break;
+  }
+  if(!req.body.evt_edate) {
+    req.body.evt_edate = req.body.evt_sdate
+  }
+
+  stime = req.body.start_time;
+  etime = req.body.end_time;
+
+  console.log(stime);
+  console.log(etime);
+
+  let target_user = await VUsers.findOne({ userid: req.body.userid })
+
+  let newRec = {
+    userid: req.body.userid,
+    first_name: target_user.first_name,
+    last_name: target_user.last_name,
+    hours_recorded: req.body.duration,
+    additional_hours: req.body.additional_hours,
+    start_time: stime,
+    end_time: etime,
+    event_type: evttypes[req.body.evt_type],
+    event_desc: req.body.evt_desc ? req.body.evt_desc : ""
+  }
+  console.log(isahrs)
+  if (isahrs) {
+    delete newRec.additional_hours
+  }
+  console.log(newRec);
+
+  let record = Records.create(newRec);
+  if (record) {
+    Config.findByIdAndUpdate(cid, { $inc: { new_records_added: 1 } })
+        .then(rec => console.log(rec))
+        .catch(err => console.log(err))
+    req.flash('success_msg', 'Record Successfully Added')
+    res.redirect('/a/records');
+  }
 })
 
 /*

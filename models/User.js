@@ -8,6 +8,10 @@
 const mongoose = require('mongoose')
 
 const UserSchema = new mongoose.Schema({
+  userid: {
+    type: String,
+    required: true
+  },
   role: {
     type: String,
     required: true,
@@ -37,6 +41,11 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  account_page: {
+    type: String,
+    required: true,
+    default: "hide"
+  }
 })
 
 module.exports = mongoose.model('User', UserSchema,  'ap-users')

@@ -5,11 +5,12 @@
  *
  */
 
+/* Modules */
 const express = require('express')
 const router = express.Router()
-const passport = require('passport');
+const passport = require('passport')
 
-const CryptoJS = require('crypto-js');
+const CryptoJS = require('crypto-js')
 
 const { ensureGuest } = require('../config/auth')
 

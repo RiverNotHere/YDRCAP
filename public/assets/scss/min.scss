@@ -12,18 +12,19 @@
 @import 'base/reset';
 
 /* BASIC STYLE */
-body {
-  height: 100%;
-}
+html { height: 100%; }
+body { height: 100%; }
 
-//Font Style (Ungrouped)
-.active {
-  font-weight: bold;
-  color: $light-blue !important;
-}
+// Font Style (Ungrouped)
+.active { font-weight: bold; color: #00A0E6 !important; }
 
-#title {
-  font-family: LaoMN !important;
+#title { font-family: LaoMN !important; }
+
+// Box Style (Ungrouped)
+form#new-record {
+  div.input-field {
+    margin-bottom: 15px !important;
+  }
 }
 
 /* Nav & Footer */
@@ -46,9 +47,7 @@ footer {
   height: 20px; /* .push must be the same height as .footer */
 }
 
-footer a {
-  color: white !important;
-}
+footer a { color: white !important; }
 
 footer a:hover {
   color: white !important;
@@ -79,10 +78,6 @@ table:not(#recTable) {
 
 /* Record Table Style */
 
-div#recTable_info {
-  float: left;
-}
-
 div#recTable_paginate {
   background-color: #00A0E6;
   padding: 5px;
@@ -101,9 +96,7 @@ div#recTable_paginate a:hover{
 /* END Record Table Style */
 
 /* Main Container */
-.main:not(button) {
-  margin-left: 210px;
-}
+.main:not(button) { margin-left: 210px; }
 
 .main {
   min-height: 100%;
