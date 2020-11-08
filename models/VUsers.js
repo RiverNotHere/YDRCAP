@@ -40,6 +40,14 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  birth_year: {
+    type: Number,
+    required: true
+  },
+  birth_month: {
+    type: Number,
+    required: true
+  }
 
 })
 

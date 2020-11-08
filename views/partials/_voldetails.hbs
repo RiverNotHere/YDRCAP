@@ -1,0 +1,118 @@
+<!-- Record Container -->
+{{#if user}}
+  <div class="record-container">
+
+    <!-- Title & Edit Button -->
+    <div class="row">
+      <div class="col l12 m12 s12">
+        <span class="record-title">Account Detail</span>
+        <button class="btn blue right" onclick="window.location.href = '/a/edit-account?id={{user._id}}&type=volunteer'"><i class="material-icons">create</i></button>
+      </div>
+    </div>
+
+    <!-- Record Info -->
+    <div class="row">
+      <div class="col l3 m3 s3">
+        <label>Userid:</label>
+        <input type="text" disabled value="{{user.userid}}">
+      </div>
+      <div class="col l5 m5 s9">
+        <label>Username:</label>
+        <input type="text" disabled value="{{user.username}}">
+      </div>
+      <div class="col l2 m2 s5">
+        <label>Age Group:</label>
+        <input type="text" disabled value="{{getAgeGroup user.birth_year user.birth_month}}">
+      </div>
+      <div class="col l2 m2 s7">
+        <label>Total Hours:</label>
+        <input type="text" disabled value="{{user.total_hours}}">
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col l6 m6 s6">
+        <label>Email Address:</label>
+        <input type="text" disabled value="{{user.email}}">
+      </div>
+      <div class="col l3 m3 s3">
+        <label>Birth Year:</label>
+        <input type="number" disabled value="{{user.birth_year}}">
+      </div>
+      <div class="col l3 m3 s3">
+        <label>Birth Month:</label>
+        <input type="number" disabled value="{{user.birth_month}}">
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col l4 m4 s12">
+        <label>First Name:</label>
+        <input type="text" disabled value="{{user.first_name}}">
+      </div>
+      <div class="col l4 m4 s12">
+        <label>Middle Name:</label>
+        <input type="text" disabled value="{{user.middle_name}}">
+      </div>
+      <div class="col l4 m4 s12">
+        <label>Last Name:</label>
+        <input type="text" disabled value="{{user.last_name}}">
+      </div>
+    </div>
+
+    <div class="row" style="overflow-y: scroll; height: 300px">
+      <table class="highlight">
+        <caption>Records</caption>
+        <tr>
+          <th>Event Type</th>
+          <th class="hide-on-med-and-down">Start Time</th>
+          <th class="hide-on-med-and-down">End Time</th>
+          <th>Duration</th>
+          <th>Event Description</th>
+        </tr>
+        {{#if records}}
+          <tbody>
+            {{#each records}}
+              <tr onclick="window.location.href = '/a/edetails?id={{this._id}}'">
+                <td>{{this.event_type}}</td>
+                <td class="hide-on-med-and-down">{{formatDate this.start_time "YYYY-MM-DD hh:mm A"}}</td>
+                <td class="hide-on-med-and-down">{{formatDate this.end_time "YYYY-MM-DD hh:mm A"}}</td>
+                <td>{{sum this.hours_recorded this.additional_hours}}</td>
+                <td>{{this.event_description}}</td>
+              </tr>
+            {{/each}}
+          </tbody>
+        {{else}}
+          <td>This user does not have any records yet</td>
+        {{/if}}
+      </table>
+    </div>
+
+    <!-- Footer -->
+    <div class="dfooter row">
+      <button class="btn blue" onclick="window.location.href = '/a/manage-accounts'"><i class="material-icons left">arrow_back</i>Back</button>
+      <button class="btn red modal-trigger" data-target="confirm-delete"><i class="material-icons left">delete</i>Delete</button>
+    </div>
+
+    <!-- Delete Modal Structure -->
+    <div id="confirm-delete" class="modal">
+      <div class="modal-content">
+        <h4>Confirmation</h4>
+        <h6>You sure your want to delete this user? <br>You cannot undo this process</h6>
+      </div>
+      <div class="modal-footer">
+        <button class="modal-close waves-effect waves-red btn-flat">Cancel</button>
+        <button onclick="window.location.href = '/a/deluser?id={{user._id}}&type=staff'" class="modal-close waves-effect waves-green btn-flat">Yes</button>
+      </div>
+    </div>
+
+  </div>
+{{/if}}
+
+
+<!-- SCRIPTS -->
+
+<!-- Materialize Initialization -->
+<script>
+  M.Modal.init(document.querySelectorAll('.modal'))
+</script>

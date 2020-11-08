@@ -59,9 +59,9 @@ footer a:hover {
 /* END Nav & Footer */
 
 // Table
-table:not(#recTable) {
+table:not(#recTable):not(#staffTable):not(#memberTable) {
   margin: 0 auto;
-  width: 95% !important;
+  width: 99% !important;
 
   th {
     font-weight: bold;
@@ -79,18 +79,18 @@ table:not(#recTable) {
 
 /* Record Table Style */
 
-div#recTable_paginate {
+div#recTable_paginate, div#staffTable_paginate, div#memberTable_paginate {
   background-color: #00A0E6;
   padding: 5px;
   float: right;
 }
-div#recTable_paginate a{
+div#recTable_paginate a, div#staffTable_paginate a, div#memberTable_paginate a {
   padding: 0px 5px !important;
   color: white !important;
   width:100% !important;
 }
 
-div#recTable_paginate a:hover{
+div#recTable_paginate a:hover, div#staffTable_paginate a:hover, div#memberTable_paginate a:hover {
   text-decoration: underline;
 }
 

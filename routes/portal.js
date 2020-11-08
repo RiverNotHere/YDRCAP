@@ -24,44 +24,42 @@ const cid = "5f83a19caed5b31337810f36"
 @desc Dashboard
 @route GET /a/dashboard
 */
-router.get('/dashboard', ensureAuth, (req, res) => {
-  let recs = []
-  Config.findById(cid).then(configs => {
-    Records.find({ status: 0 }).limit(8).sort({ start_time: 1 }).lean().then(records => {
-      console.log(configs + "\n" + records)
-      let cname = req.user.first_name + " " + req.user.last_name
-      console.log(cname)
-      res.render('dashboard', {
-        account_page: req.user.account_page,
-        dashboard: 'active',
-        records: records,
-        coordinator_name: cname,
-        total_online: configs.total_online,
-        total_online_prev_period: configs.total_online_prev_period,
-        new_records_added: configs.new_records_added,
-        new_records_added_prev_period: configs.new_records_added_prev_period,
-        new_users_added: configs.new_users_added,
-        new_users_added_prev_period: configs.new_users_added_prev_period,
-        traffic: configs.traffic,
-        traffic_prev_period: configs.traffic_prev_period,
-      })
-    }).catch(err => console.log(err))
-  }).catch(err => console.log(err))
+router.get('/dashboard', ensureAuth, async(req, res) => {
+  let configs = await Config.findById(cid)
+  let records = await Records.find({ status: 0 }).limit(8).lean()
+  let cname = req.user.first_name + " " + req.user.last_name
+  console.log(cname)
+  console.log(records)
+  console.log(configs)
+  res.render('dashboard', {
+    account_page: req.user.account_page,
+    dashboard: 'active',
+    records: records,
+    coordinator_name: cname,
+    total_online: configs.total_online,
+    total_online_prev_period: configs.total_online_prev_period,
+    new_records_added: configs.new_records_added,
+    new_records_added_prev_period: configs.new_records_added_prev_period,
+    new_users_added: configs.new_users_added,
+    new_users_added_prev_period: configs.new_users_added_prev_period,
+    traffic: configs.traffic,
+    traffic_prev_period: configs.traffic_prev_period,
+  })
 })
 
 /*
 @desc Manage Account
 @route GET /a/manage-accounts
 */
-router.get('/manage-accounts', ensureAuth, (req, res) => {
-  User.find({}).lean().then(users => {
-    console.log(users)
-    res.render('manage-accounts', {
-      account_page: req.user.account_page,
-      maccounts: 'active',
-      users: users,
-    })
-  }).catch(err => console.log(err))
+router.get('/manage-accounts', ensureAuth, async(req, res) => {
+  let users = await User.find({}).lean()
+  let vusers = await VUsers.find({}).lean()
+
+  res.render('manage-accounts', {
+    maccounts: 'active',
+    users: users,
+    vusers: vusers
+  })
 })
 
 /*
@@ -134,64 +132,118 @@ router.post('/change-password', ensureAuth, async(req, res) => {
 
 /*
 @desc Delete User
-@route GET/POST /a/deluser?id={userid}
+@route GET /a/deluser?id={userid}&type={staff/volunteer}
 */
 router.get('/deluser', ensureAuth, (req, res) => {
-  console.log(req.query.id);
-  User.findByIdAndDelete(req.query.id).then(user => {
-    req.flash('success_msg', 'Account successfully deleted')
-    res.redirect('/a/manage-accounts')
-  }).catch(err => console.log(err))
+
+  if (req.query.type == 'staff') {
+    console.log(req.query.id);
+    User.findByIdAndDelete(req.query.id).then(user => {
+      req.flash('success_msg', 'Account successfully deleted')
+      res.redirect('/a/manage-accounts')
+    }).catch(err => console.log(err))
+  }
+
+  if(req.query.type == 'volunteer') {
+    console.log(req.query.id);
+    VUsers.findByIdAndDelete(req.query.id).then(user => {
+      req.flash('success_msg', 'Account successfully deleted')
+      res.redirect('/a/manage-accounts')
+    }).catch(err => console.log(err))
+  }
 })
 
 /*
 @desc Edit User
-@route GET/POST /a/edit-account?id={userid}
+@route GET/POST /a/edit-account?id={userid}&type={staff/volunteer}
 */
 router.get('/edit-account', ensureAuth, (req, res) => {
-  User.findById(req.query.id).lean().then(user => {
-    console.log(user)
-    if(user) {
-      res.render('edit-account', {
-        user: user,
-        // coordinator_name: cname,
-      })
-    }else {
-      res.redirect('/a/dashboard');
-    }
-  })
+  if(req.query.type == 'staff') {
+    User.findById(req.query.id).lean().then(user => {
+      console.log(user)
+      if(user) {
+        res.render('edit-staff', {
+          user: user,
+          // coordinator_name: cname,
+        })
+      }else {
+        res.redirect('/a/dashboard');
+      }
+    })
+  }
+
+  if(req.query.type == 'volunteer') {
+    VUsers.findById(req.query.id).lean().then(user => {
+      console.log(user)
+      if(user) {
+        res.render('edit-volunteer', {
+          user: user,
+          // coordinator_name: cname,
+        })
+      }else {
+        res.redirect('/a/dashboard');
+      }
+    })
+  }
 })
 
 router.post('/edit-account', ensureAuth, async(req, res) => {
   let backURL = req.header('Referer') || '/';
 
-  // Validate
-  let isEmailExist = await User.findOne({ email: req.body.email })
+  console.log(req.query)
 
-  if (isEmailExist && isEmailExist._id != req.query.id) {
-    req.flash('error_msg', 'Email already registered, please use another one')
-    res.redirect(backURL)
-  }else {
-    User.findByIdAndUpdate(req.query.id, req.body).then(user => {
-      console.log(user)
-      if(user) {
-        req.flash('success_msg', 'Changes successfully saved')
-        res.redirect(backURL)
-      }
-    }).catch(err => console.log(err))
+  if(req.query.type == 'staff') {
+
+    // Validate
+    let isEmailExist = await User.findOne({ email: req.body.email })
+
+    if (isEmailExist && isEmailExist._id != req.query.id) {
+      req.flash('error_msg', 'Email already registered, please use another one')
+      res.redirect(backURL)
+    }else {
+      User.findByIdAndUpdate(req.query.id, req.body).then(user => {
+        console.log(user)
+        if(user) {
+          req.flash('success_msg', 'Changes successfully saved')
+          res.redirect(backURL)
+        }
+      }).catch(err => console.log(err))
+    }
+
+  }
+
+  if(req.query.type == 'volunteer') {
+
+    // Validate
+    let isEmailExist = await VUsers.findOne({ email: req.body.email })
+
+    if (isEmailExist && isEmailExist._id != req.query.id) {
+      req.flash('error_msg', 'Email already registered, please use another one')
+      res.redirect(backURL)
+    }else {
+      VUsers.findByIdAndUpdate(req.query.id, req.body).then(user => {
+        console.log(user)
+        if(user) {
+          req.flash('success_msg', 'Changes successfully saved')
+          res.redirect(backURL)
+        }
+      }).catch(err => console.log(err))
+    }
+
   }
 })
 
-const evttypes = {
-  0: "Other",
-  1: "Normal Zoom Class Teaching",
-  2: "Chinese Daka Teaching",
-  4: "Chinese Daka Training",
-  5: "Math Mammoth Study Group Teaching",
-  6: "Math Mammoth Study Group Teacher Meeting",
-  7: "English Study Group Teaching",
-  8: "Normal Zoom Class Co-Hosting",
-}
+// const evttypes = {
+//   0: "Other",
+//   1: "Normal Zoom Class Teaching",
+//   2: "Chinese Daka Teaching",
+//   4: "Chinese Daka Training",
+//   5: "Math Mammoth Study Group Teaching",
+//   6: "Math Mammoth Study Group Teacher Meeting",
+//   7: "English Study Group Teaching",
+//   8: "Normal Zoom Class Co-Hosting",
+// }
+
 /*
 @desc Add Record
 @route POST /a/newrec
@@ -340,6 +392,7 @@ router.post('/confirm-rec', ensureAuth, (req, res) => {
 })
 
 //functions
+
 async function updateNewUsers() {
   let doc = await Config.findById(cid).exec()
   await Config.findByIdAndUpdate(cid, { $set:{ new_users_added_prev_period: doc.new_users_added, new_users_added: 0} })

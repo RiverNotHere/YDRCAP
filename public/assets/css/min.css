@@ -91,6 +91,27 @@ textarea {
   appearance: none;
 }
 
+/* Scroll Bar Style */
+/* width */
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #00A0E6;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #0076a8;
+}
+
 /* BASIC STYLE */
 html {
   height: 100%;
@@ -144,36 +165,36 @@ footer a:hover {
 }
 
 /* END Nav & Footer */
-table:not(#recTable) {
+table:not(#recTable):not(#staffTable):not(#memberTable) {
   margin: 0 auto;
-  width: 95% !important;
+  width: 99% !important;
 }
-table:not(#recTable) th {
+table:not(#recTable):not(#staffTable):not(#memberTable) th {
   font-weight: bold;
   background-color: #49c8ff;
   color: white;
   border-radius: 0;
 }
-table:not(#recTable) caption {
+table:not(#recTable):not(#staffTable):not(#memberTable) caption {
   font-weight: bold;
   font-size: 20px;
   margin-bottom: 5px;
 }
 
 /* Record Table Style */
-div#recTable_paginate {
+div#recTable_paginate, div#staffTable_paginate, div#memberTable_paginate {
   background-color: #00A0E6;
   padding: 5px;
   float: right;
 }
 
-div#recTable_paginate a {
+div#recTable_paginate a, div#staffTable_paginate a, div#memberTable_paginate a {
   padding: 0px 5px !important;
   color: white !important;
   width: 100% !important;
 }
 
-div#recTable_paginate a:hover {
+div#recTable_paginate a:hover, div#staffTable_paginate a:hover, div#memberTable_paginate a:hover {
   text-decoration: underline;
 }
 
@@ -192,7 +213,7 @@ div#recTable_paginate a:hover {
   /* the bottom margin is the negative value of the footer's height */
 }
 
-@media (max-width: 800px) {
+@media (max-width: 993px) {
   .main:not(button) {
     margin-left: 60px !important;
   }
@@ -234,7 +255,7 @@ div#recTable_paginate a:hover {
   text-align: center;
 }
 
-@media (max-width: 800px) {
+@media (max-width: 993px) {
   .login-form {
     margin: 100px 15px;
   }
@@ -313,7 +334,7 @@ button:not(.btn):not(.btn-flat).small {
   vertical-align: middle;
 }
 
-@media (max-width: 800px) {
+@media (max-width: 993px) {
   .side-nav {
     width: 60px !important;
   }

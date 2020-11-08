@@ -13,40 +13,40 @@
 <div class="row">
 
   <div class="col s12">
-    <h4>Staff Members</h4>
+    <h4>Volunteer Members</h4>
   </div>
-
-  <!-- Search Bar -->
-<!--  <div class="col l4 m4 s12 offset-l8 offset-m8">-->
-<!--    <div class="input-field">-->
-<!--      <i class="material-icons prefix">search</i>-->
-<!--      <input id="searchBox" type="text" placeholder="search for users...">-->
-<!--    </div>-->
-<!--  </div>-->
 
   <div class="col l2 m2 s12">
     <div class="input-field">
-      <a data-target="new-staff" class="btn blue modal-trigger"><i class="material-icons left">group_add</i>New Staff</a>
+      <a data-target="new-vuser" class="btn blue modal-trigger"><i class="material-icons left">group_add</i>New Member</a>
     </div>
   </div>
-  <!-- New Record Modal -->
-  <div id="new-staff" class="modal">
+
+  <!-- New User Modal -->
+  <div id="new-vuser" class="modal">
     <div class="modal-content">
       <h4>New Record</h4>
       <br>
-      <form action="/u/new-user" method="POST" id="new-staff-form">
+
+      <form action="/u/new-vuser" method="POST" id="new-vuser-form">
         <div class="input-field">
           <label>Email</label>
           <input type="email" required name="email">
         </div>
 
         <div class="input-field">
-          <select name="role" required>
-            <option value="" disabled selected>Please Select</option>
-            <option value="Administrator">Administrator</option>
-            <option value="Coordinator">Coordinator</option>
-          </select>
-          <label>Role</label>
+          <label>Username</label>
+          <input type="text" required name="username">
+        </div>
+
+        <div class="input-field">
+          <label>Birth Year</label>
+          <input type="number" required name="birth_year">
+        </div>
+
+        <div class="input-field">
+          <label>Birth Month</label>
+          <input type="number" required name="birth_month">
         </div>
 
         <div class="input-field">
@@ -74,37 +74,38 @@
           <input type="password" required name="cpassword">
         </div>
       </form>
+
     </div>
     <div class="modal-footer">
       <button class="modal-close waves-effect waves-green btn-flat">Cancel</button>
-      <button form="new-staff-form" type="submit" class="modal-close waves-effect waves-green btn-flat">Add</button>
+      <button form="new-vuser-form" type="submit" class="modal-close waves-effect waves-green btn-flat">Add</button>
     </div>
   </div>
 
   <!-- Data Table -->
   <div class="col l12 m12 s11">
-    <table id="staffTable" class="highlight">
+    <table id="memberTable" class="highlight">
       <thead>
       <tr id="th" style="font-weight: bold">
         <th>Userid</th>
         <th>First Name</th>
         <th>Last Name</th>
         <th class="hide-on-med-and-down">Email Address</th>
-        <th>Role</th>
+        <th>Age Group</th>
         <th>Action</th>
       </tr>
       </thead>
-      {{#if users}}
+      {{#if vusers}}
         <tbody>
-        {{#each users}}
+        {{#each vusers}}
           <tr>
-            <td onclick="window.location.href = '/u/{{this._id}}?type=staff'">{{this.userid}}</td>
-            <td onclick="window.location.href = '/u/{{this._id}}?type=staff'">{{this.first_name}}</td>
-            <td onclick="window.location.href = '/u/{{this._id}}?type=staff'">{{this.last_name}}</td>
-            <td onclick="window.location.href = '/u/{{this._id}}?type=staff'" class="hide-on-med-and-down">{{this.email}}</td>
-            <td onclick="window.location.href = '/u/{{this._id}}?type=staff'">{{this.role}}</td>
+            <td onclick="window.location.href = '/u/{{this._id}}?type=volunteer'">{{this.userid}}</td>
+            <td onclick="window.location.href = '/u/{{this._id}}?type=volunteer'">{{this.first_name}}</td>
+            <td onclick="window.location.href = '/u/{{this._id}}?type=volunteer'">{{this.last_name}}</td>
+            <td onclick="window.location.href = '/u/{{this._id}}?type=volunteer'" class="hide-on-med-and-down">{{this.email}}</td>
+            <td onclick="window.location.href = '/u/{{this._id}}?type=volunteer'">{{getAgeGroup this.birth_year this.birth_month}}</td>
             <td>
-              <button onclick="window.location.href = '/a/edit-account?id={{this._id}}&type=staff'" class="btn btn-small waves-effect waves-light modal-trigger blue">
+              <button onclick="window.location.href = '/a/edit-account?id={{this._id}}&type=volunteer'" class="btn btn-small waves-effect waves-light modal-trigger blue">
               <i class="material-icons">edit</i>
               </button>
               <button data-target="d-{{this._id}}" class="btn btn-small waves-effect waves-light modal-trigger red">
@@ -121,7 +122,7 @@
             </div>
             <div class="modal-footer">
               <button class="modal-close waves-effect waves-red btn-flat">Cancel</button>
-              <button onclick="window.location.href = '/a/deluser?id={{this._id}}&type=staff'" class="modal-close waves-effect waves-green btn-flat">Yes</button>
+              <button onclick="window.location.href = '/a/deluser?id={{this._id}}&type=volunteer'" class="modal-close waves-effect waves-green btn-flat">Yes</button>
             </div>
           </div>
         {{/each}}

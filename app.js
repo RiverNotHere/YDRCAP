@@ -54,10 +54,10 @@ app.engine('.hbs', exphbs({
 
   // Customized Helpers
   helpers: {
-    formatDate: function (datetime, format) { // Format Date
+    formatDate: (datetime, format) => { // Format Date
       return moment(datetime).format(format);
     },
-    switch: function (val) { // Get text color and name
+    switch: (val) => { // Get text color and name
       switch (val) {
         case 0:
           return '<font color="red">Unconfirmed</font>';
@@ -69,10 +69,10 @@ app.engine('.hbs', exphbs({
           return null;
       }
     },
-    sum: function (a, b) { // Get sum
+    sum: (a, b) => { // Get sum
       return a + b;
     },
-    getStat: function(now, before, period) { // Calculating the increase/decreases
+    getStat: (now, before, period) => { // Calculating the increase/decreases
       let decreaseValue = before - now;
       let perc = (decreaseValue / before) * 100;
       console.log(perc)
@@ -83,16 +83,35 @@ app.engine('.hbs', exphbs({
         period = "last " + period;
       }
       if (perc > 0) {
-        return `<font color="red"><i class="material-icons">arrow_downward</i> ${Math.abs(perc)}% since ${period}</font>`
+        return `<font color="red"><i class="material-icons">arrow_downward</i> ${Math.abs(+parseFloat(perc.toFixed(2)))}% since ${period}</font>`
       }else {
-        return `<font color="green"><i class="material-icons">arrow_upward</i> ${Math.abs(perc)}% since ${period}</font>`
+        return `<font color="green"><i class="material-icons">arrow_upward</i> ${Math.abs(+parseFloat(perc.toFixed(2)))}% since ${period}</font>`
       }
     },
-    isshow: function(status) { // Determine showing or not
+    isshow: (status) => { // Determine showing or not
       if (status == 0) {
         return ''
       } else {
         return 'hide'
+      }
+    },
+    getAgeGroup: (year, month) => {
+      let dob = new Date(year, month)
+      let diff_ms = Date.now() - dob.getTime();
+      let age_dt = new Date(diff_ms);
+      let age = Math.abs(age_dt.getUTCFullYear() - 1970);
+
+      switch (true) {
+        case (age >= 5 && age <= 10):
+          return "Kids"
+        case (age >= 11 && age <= 15):
+          return "Teens"
+        case (age >= 16 && age <= 25):
+          return "Young Adults"
+        case (age >= 26):
+          return "Adults"
+        default:
+          return "Invalid Age"
       }
     }
   }

@@ -9,7 +9,7 @@
       </div>
     </div>
 
-    <form method="POST" action="/a/edit-account?id={{user._id}}" id="edit-account-form">
+    <form method="POST" action="/a/edit-account?id={{user._id}}&type=staff" id="edit-account-form">
     <!-- Account Info -->
     <div class="row">
       <div class="col l4 m6 s6">
@@ -44,7 +44,7 @@
 
     <!-- Footer -->
     <div class="dfooter row">
-      <button class="btn blue" onclick="window.location.href = '/u/{{user._id}}'"><i class="material-icons left">arrow_back</i>Back</button>
+      <button class="btn blue" onclick="window.location.href = '/u/{{user._id}}?type=staff'"><i class="material-icons left">arrow_back</i>Back</button>
       <button type="submit" form="edit-account-form" class="btn"><i class="material-icons left">save</i>Save</button>
     </div>
 
@@ -57,5 +57,4 @@
 <!-- Materialize Initialization -->
 <script>
   M.Modal.init(document.querySelectorAll('.modal'))
-  M.Datepicker.init(document.querySelectorAll('.datepicker'))
 </script>

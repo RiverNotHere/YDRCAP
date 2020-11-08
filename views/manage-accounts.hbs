@@ -1,1 +1,33 @@
+<!-- Page Only Style -->
+<style>
+  h4 {
+    margin: 10px 0px 0px 0px;
+    text-decoration: underline;
+  }
+</style>
+
 {{> _userTable}}
+
+{{> _volunteerUserTable}}
+
+<!-- CDN IMPORT -->
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.21/js/dataTables.material.min.js" integrity="sha512-QlmLkAfo4B1hJMd6K0Z0lFlZbgTrPGKsWp2vi5gDSrKMeDZfYPM02ovNcvs5k/2S84gH1F0VCDCPsSg/p4RX1A==" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.21/js/jquery.dataTables.min.js" integrity="sha512-BkpSL20WETFylMrcirBahHfSnY++H2O1W+UnEEO4yNIl+jI2+zowyoGJpbtk6bx97fBXf++WJHSSK2MV4ghPcg==" crossorigin="anonymous"></script>
+
+<!-- Data Table Init & Config -->
+<script>
+  $(document).ready(function() {
+    $('#staffTable').DataTable();
+    $('#staffTable_length').hide();
+
+    $('#memberTable').DataTable();
+    $('#memberTable_length').hide();
+  })
+</script>
+
+<!-- Materialize Initialize -->
+<script>
+  M.Modal.init(document.querySelectorAll('.modal'))
+  M.FormSelect.init(document.querySelectorAll('select'))
+</script>
