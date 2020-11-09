@@ -354,11 +354,21 @@ router.post('/edit-record', ensureAuth, (req, res) => {
 @desc  Delete Record
 @route GET /a/delrec?id={any}
 */
-router.get('/delrec',  ensureAuth, (req, res) => {
-  Records.findByIdAndDelete(req.query.id).then(result => {
-    req.flash('success_msg', 'Record successfully deleted')
+router.get('/delrec',  ensureAuth, async(req, res) => {
+  let record = await Records.findById(req.query.id)
+  console.log(record)
+  if (record.status == 1) {
+    await Records.findByIdAndDelete(record._id)
+    await VUsers.findOneAndUpdate({ userid: record.userid }, { $inc: { total_hours: -(record.hours_recorded + record.additional_hours) } })
+    req.flash('success_msg', 'Record successfully deleted!')
     res.redirect('/a/records')
-  }).catch(err => console.log(err))
+  }
+
+  if (record.status == 0) {
+    await Records.findByIdAndDelete(record._id)
+    req.flash('success_msg', 'Record successfully deleted!')
+    res.redirect('/a/records')
+  }
 })
 
 
