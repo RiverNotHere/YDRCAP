@@ -57,7 +57,7 @@ app.engine('.hbs', exphbs({
     formatDate: (datetime, format) => { // Format Date
       return moment(datetime).format(format);
     },
-    switch: (val) => { // Get text color and name
+    switch: (val) => { // Get Status
       switch (val) {
         case 0:
           return '<font color="red">Unconfirmed</font>';
