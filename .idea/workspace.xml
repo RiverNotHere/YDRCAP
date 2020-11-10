@@ -27,30 +27,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d9540d9b-c350-44f2-817d-584499beeff8" name="默认的" comment="">
-      <change afterPath="$PROJECT_DIR$/views/edit-volunteer.hbs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/views/partials/_edit-volunteer-form.hbs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/views/partials/_voldetails.hbs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/views/partials/_volunteerUserTable.hbs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/views/voldetails.hbs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/VUsers.js" beforeDir="false" afterPath="$PROJECT_DIR$/models/VUsers.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css/min.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/min.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css/min.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/min.css.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/scss/base/_reset.scss" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/scss/base/_reset.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/scss/lib/_vars.scss" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/scss/lib/_vars.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/scss/min.scss" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/scss/min.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/account.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/account.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/portal.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/portal.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/edit-account.hbs" beforeDir="false" afterPath="$PROJECT_DIR$/views/edit-staff.hbs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/layouts/main.hbs" beforeDir="false" afterPath="$PROJECT_DIR$/views/layouts/main.hbs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/manage-accounts.hbs" beforeDir="false" afterPath="$PROJECT_DIR$/views/manage-accounts.hbs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/partials/_accdetails.hbs" beforeDir="false" afterPath="$PROJECT_DIR$/views/partials/_accdetails.hbs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/partials/_edetails.hbs" beforeDir="false" afterPath="$PROJECT_DIR$/views/partials/_edetails.hbs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/partials/_edit-account-form.hbs" beforeDir="false" afterPath="$PROJECT_DIR$/views/partials/_edit-staff-form.hbs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/partials/_fullRecordTable.hbs" beforeDir="false" afterPath="$PROJECT_DIR$/views/partials/_fullRecordTable.hbs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/views/partials/_recordTable.hbs" beforeDir="false" afterPath="$PROJECT_DIR$/views/partials/_recordTable.hbs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/partials/_userTable.hbs" beforeDir="false" afterPath="$PROJECT_DIR$/views/partials/_userTable.hbs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -191,7 +169,8 @@
       <workItem from="1604597977284" duration="13592000" />
       <workItem from="1604675815403" duration="9880000" />
       <workItem from="1604699008454" duration="6682000" />
-      <workItem from="1604768664148" duration="11595000" />
+      <workItem from="1604768664148" duration="11830000" />
+      <workItem from="1604937471014" duration="2340000" />
     </task>
     <task id="LOCAL-00001" summary="saved 2020-10-31 08:19 AM">
       <created>1604157629272</created>
@@ -242,7 +221,28 @@
       <option name="project" value="LOCAL" />
       <updated>1604695094854</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Updated 2020-11-08 12:42 PM">
+      <created>1604868186934</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1604868186934</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Updated 2020-11-09 08:07 AM">
+      <created>1604938107943</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1604938107943</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Updated 2020-11-09 04:14 PM">
+      <created>1604967278804</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1604967278804</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -278,7 +278,10 @@
     <MESSAGE value="Saved 2020-11-05 03:31 PM" />
     <MESSAGE value="Saved 2020-11-06 11:05 AM" />
     <MESSAGE value="Updated 2020-11-06 12:38 PM" />
-    <option name="LAST_COMMIT_MESSAGE" value="Updated 2020-11-06 12:38 PM" />
+    <MESSAGE value="Updated 2020-11-08 12:42 PM" />
+    <MESSAGE value="Updated 2020-11-09 08:07 AM" />
+    <MESSAGE value="Updated 2020-11-09 04:14 PM" />
+    <option name="LAST_COMMIT_MESSAGE" value="Updated 2020-11-09 04:14 PM" />
   </component>
   <component name="WindowStateProjectService">
     <state x="184" y="123" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1604157204491">
@@ -297,40 +300,44 @@
       <screen x="0" y="0" width="1440" height="900" />
     </state>
     <state x="263" y="255" key="EditFileWatcherDialog/0.0.1440.900@0.0.1440.900" timestamp="1604158221426" />
-    <state width="1419" height="261" key="GridCell.Tab.0.bottom" timestamp="1604851757992">
+    <state width="1419" height="285" key="GridCell.Tab.0.bottom" timestamp="1604938132199">
       <screen x="0" y="23" width="1440" height="877" />
     </state>
     <state width="1419" height="261" key="GridCell.Tab.0.bottom/0.0.1440.900@0.0.1440.900" timestamp="1604330411661" />
-    <state width="1419" height="261" key="GridCell.Tab.0.bottom/0.23.1440.877@0.23.1440.877" timestamp="1604851757992" />
-    <state width="1419" height="261" key="GridCell.Tab.0.center" timestamp="1604851757991">
+    <state width="1419" height="285" key="GridCell.Tab.0.bottom/0.23.1440.877@0.23.1440.877" timestamp="1604938132199" />
+    <state width="1419" height="285" key="GridCell.Tab.0.center" timestamp="1604938132197">
       <screen x="0" y="23" width="1440" height="877" />
     </state>
     <state width="1419" height="261" key="GridCell.Tab.0.center/0.0.1440.900@0.0.1440.900" timestamp="1604330411659" />
-    <state width="1419" height="261" key="GridCell.Tab.0.center/0.23.1440.877@0.23.1440.877" timestamp="1604851757991" />
-    <state width="1419" height="261" key="GridCell.Tab.0.left" timestamp="1604851757991">
+    <state width="1419" height="285" key="GridCell.Tab.0.center/0.23.1440.877@0.23.1440.877" timestamp="1604938132197" />
+    <state width="1419" height="285" key="GridCell.Tab.0.left" timestamp="1604938132196">
       <screen x="0" y="23" width="1440" height="877" />
     </state>
     <state width="1419" height="261" key="GridCell.Tab.0.left/0.0.1440.900@0.0.1440.900" timestamp="1604330411658" />
-    <state width="1419" height="261" key="GridCell.Tab.0.left/0.23.1440.877@0.23.1440.877" timestamp="1604851757991" />
-    <state width="1419" height="261" key="GridCell.Tab.0.right" timestamp="1604851757992">
+    <state width="1419" height="285" key="GridCell.Tab.0.left/0.23.1440.877@0.23.1440.877" timestamp="1604938132196" />
+    <state width="1419" height="285" key="GridCell.Tab.0.right" timestamp="1604938132198">
       <screen x="0" y="23" width="1440" height="877" />
     </state>
     <state width="1419" height="261" key="GridCell.Tab.0.right/0.0.1440.900@0.0.1440.900" timestamp="1604330411660" />
-    <state width="1419" height="261" key="GridCell.Tab.0.right/0.23.1440.877@0.23.1440.877" timestamp="1604851757992" />
+    <state width="1419" height="285" key="GridCell.Tab.0.right/0.23.1440.877@0.23.1440.877" timestamp="1604938132198" />
     <state x="101" y="129" key="SettingsEditor" timestamp="1604618877643">
       <screen x="0" y="23" width="1440" height="877" />
     </state>
     <state x="101" y="109" key="SettingsEditor/0.0.1440.900@0.0.1440.900" timestamp="1604158252912" />
     <state x="101" y="129" key="SettingsEditor/0.23.1440.877@0.23.1440.877" timestamp="1604618877643" />
-    <state x="320" y="201" key="Vcs.Push.Dialog.v2" timestamp="1604695103076">
+    <state x="320" y="201" key="Vcs.Push.Dialog.v2" timestamp="1604967283524">
       <screen x="0" y="23" width="1440" height="877" />
     </state>
-    <state x="320" y="201" key="Vcs.Push.Dialog.v2/0.23.1440.877@0.23.1440.877" timestamp="1604695103076" />
+    <state x="320" y="201" key="Vcs.Push.Dialog.v2/0.23.1440.877@0.23.1440.877" timestamp="1604967283524" />
     <state x="493" y="143" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1604692079378">
       <screen x="0" y="23" width="1440" height="877" />
     </state>
     <state x="493" y="126" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/0.0.1440.900@0.0.1440.900" timestamp="1604332499432" />
     <state x="493" y="143" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/0.23.1440.877@0.23.1440.877" timestamp="1604692079378" />
+    <state x="538" y="382" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1604938128130">
+      <screen x="0" y="23" width="1440" height="877" />
+    </state>
+    <state x="538" y="382" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.23.1440.877@0.23.1440.877" timestamp="1604938128130" />
     <state x="385" y="211" key="run.anything.popup" timestamp="1604618546069">
       <screen x="0" y="23" width="1440" height="877" />
     </state>
