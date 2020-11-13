@@ -184,7 +184,9 @@
 <!-- Data Table Init & Config -->
 <script>
   $(document).ready(function() {
-    $('#recTable').DataTable();
+    $('#recTable').DataTable({
+      "order": [[ 4, "desc" ]]
+    });
     $('#recTable_length').hide();
     // $('#recTable_filter').remove();
   })

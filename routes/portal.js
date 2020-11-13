@@ -26,7 +26,7 @@ const cid = "5f83a19caed5b31337810f36"
 */
 router.get('/dashboard', ensureAuth, async(req, res) => {
   let configs = await Config.findById(cid)
-  let records = await Records.find({ status: 0 }).limit(8).lean()
+  let records = await Records.find({ status: 0 }).sort({ created_at: 1 }).limit(10).lean()
   let cname = req.user.first_name + " " + req.user.last_name
   console.log(cname)
   console.log(records)

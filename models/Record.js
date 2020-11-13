@@ -56,6 +56,6 @@ const RecordSchema = new mongoose.Schema({
         type: String
     },
 
-})
+}, { timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' } })
 
 module.exports = mongoose.model('Record', RecordSchema, 'records');
