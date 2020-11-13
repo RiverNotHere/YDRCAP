@@ -5,8 +5,7 @@
       <th>First Name</th>
       <th>Last Name</th>
       <th>Event Type</th>
-      <th>Start Time <span class="hide-on-med-and-down">(MM-DD-YYYY hh:mm)</span></th>
-      <th>End Time <span class="hide-on-med-and-down">(MM-DD-YYYY hh:mm)</span></th>
+      <th>Start Date</th>
       <th>Hours Recorded</th>
       <th>Action</th>
     </tr>
@@ -19,8 +18,7 @@
           <td onclick="window.location.href = '/a/edetails?id={{this._id}}'">{{this.first_name}}</td>
           <td onclick="window.location.href = '/a/edetails?id={{this._id}}'">{{this.last_name}}</td>
           <td onclick="window.location.href = '/a/edetails?id={{this._id}}'">{{this.event_type}}</td>
-          <td onclick="window.location.href = '/a/edetails?id={{this._id}}'">{{formatDate this.start_time "YYYY-MM-DD hh:mm A"}}</td>
-          <td onclick="window.location.href = '/a/edetails?id={{this._id}}'">{{formatDate this.end_time "YYYY-MM-DD hh:mm A"}}</td>
+          <td onclick="window.location.href = '/a/edetails?id={{this._id}}'">{{formatDate this.start_time "YYYY-MM-DD"}}</td>
           <td onclick="window.location.href = '/a/edetails?id={{this._id}}'">{{sum this.hours_recorded this.additional_hours}}</td>
           <td><button data-target="m-{{this._id}}" class="btn btn-small waves-effect waves-light modal-trigger">Confirm</button></td>
         </tr>

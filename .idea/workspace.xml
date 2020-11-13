@@ -19,22 +19,18 @@
     <select>
       <path>
         <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
-        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
-        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
-        <item name="BRANCH:origin/main" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="BRANCH:main" type="e8cecc67:BranchNodeDescriptor" />
       </path>
     </select>
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d9540d9b-c350-44f2-817d-584499beeff8" name="默认的" comment="">
-      <change afterPath="$PROJECT_DIR$/utils/exportData.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/Record.js" beforeDir="false" afterPath="$PROJECT_DIR$/models/Record.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/portal.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/portal.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/partials/_fullRecordTable.hbs" beforeDir="false" afterPath="$PROJECT_DIR$/views/partials/_fullRecordTable.hbs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/partials/_voldetails.hbs" beforeDir="false" afterPath="$PROJECT_DIR$/views/partials/_voldetails.hbs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/manage-accounts.hbs" beforeDir="false" afterPath="$PROJECT_DIR$/views/manage-accounts.hbs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/partials/_recordTable.hbs" beforeDir="false" afterPath="$PROJECT_DIR$/views/partials/_recordTable.hbs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/partials/_volunteerUserTable.hbs" beforeDir="false" afterPath="$PROJECT_DIR$/views/partials/_volunteerUserTable.hbs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/profile.hbs" beforeDir="false" afterPath="$PROJECT_DIR$/views/profile.hbs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -42,6 +38,11 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="main" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="JsFlowSettings">
@@ -177,7 +178,7 @@
       <workItem from="1604699008454" duration="6682000" />
       <workItem from="1604768664148" duration="11830000" />
       <workItem from="1604937471014" duration="2389000" />
-      <workItem from="1605296069963" duration="2835000" />
+      <workItem from="1605296069963" duration="4071000" />
     </task>
     <task id="LOCAL-00001" summary="saved 2020-10-31 08:19 AM">
       <created>1604157629272</created>
@@ -256,7 +257,14 @@
       <option name="project" value="LOCAL" />
       <updated>1604984412298</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="Saved 2020-11-03 2:00 PM PST">
+      <created>1605304833842</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1605304833843</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -268,12 +276,17 @@
         <entry key="MAIN">
           <value>
             <State>
+              <option name="CUSTOM_BOOLEAN_PROPERTIES">
+                <map>
+                  <entry key="Show.Git.Branches" value="true" />
+                </map>
+              </option>
               <option name="FILTERS">
                 <map>
                   <entry key="branch">
                     <value>
                       <list>
-                        <option value="origin/main" />
+                        <option value="main" />
                       </list>
                     </value>
                   </entry>
@@ -296,7 +309,8 @@
     <MESSAGE value="Updated 2020-11-09 08:07 AM" />
     <MESSAGE value="Updated 2020-11-09 04:14 PM" />
     <MESSAGE value="Updated 2020-11-09 09:00 PM" />
-    <option name="LAST_COMMIT_MESSAGE" value="Updated 2020-11-09 09:00 PM" />
+    <MESSAGE value="Saved 2020-11-03 2:00 PM PST" />
+    <option name="LAST_COMMIT_MESSAGE" value="Saved 2020-11-03 2:00 PM PST" />
   </component>
   <component name="WindowStateProjectService">
     <state x="184" y="123" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1604157204491">
@@ -340,10 +354,10 @@
     </state>
     <state x="101" y="109" key="SettingsEditor/0.0.1440.900@0.0.1440.900" timestamp="1604158252912" />
     <state x="101" y="129" key="SettingsEditor/0.23.1440.877@0.23.1440.877" timestamp="1604618877643" />
-    <state x="320" y="201" key="Vcs.Push.Dialog.v2" timestamp="1604984415677">
+    <state x="320" y="201" key="Vcs.Push.Dialog.v2" timestamp="1605304870133">
       <screen x="0" y="23" width="1440" height="877" />
     </state>
-    <state x="320" y="201" key="Vcs.Push.Dialog.v2/0.23.1440.877@0.23.1440.877" timestamp="1604984415677" />
+    <state x="320" y="201" key="Vcs.Push.Dialog.v2/0.23.1440.877@0.23.1440.877" timestamp="1605304870133" />
     <state x="493" y="143" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1604692079378">
       <screen x="0" y="23" width="1440" height="877" />
     </state>

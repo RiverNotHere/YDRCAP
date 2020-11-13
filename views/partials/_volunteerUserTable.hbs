@@ -92,6 +92,7 @@
         <th>Last Name</th>
         <th class="hide-on-med-and-down">Email Address</th>
         <th>Age Group</th>
+        <th>Total Hours</th>
         <th>Action</th>
       </tr>
       </thead>
@@ -104,6 +105,7 @@
             <td onclick="window.location.href = '/u/{{this._id}}?type=volunteer'">{{this.last_name}}</td>
             <td onclick="window.location.href = '/u/{{this._id}}?type=volunteer'" class="hide-on-med-and-down">{{this.email}}</td>
             <td onclick="window.location.href = '/u/{{this._id}}?type=volunteer'">{{getAgeGroup this.birth_year this.birth_month}}</td>
+            <td onclick="window.location.href = '/u/{{this._id}}?type=volunteer'">{{this.total_hours}}</td>
             <td>
               <button onclick="window.location.href = '/a/edit-account?id={{this._id}}&type=volunteer'" class="btn btn-small waves-effect waves-light modal-trigger blue">
               <i class="material-icons">edit</i>
