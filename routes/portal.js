@@ -7,6 +7,7 @@
 
 const express = require('express')
 const router = express.Router()
+const fs = require('fs')
 
 const { ensureAuth } = require('../config/auth')
 
@@ -95,6 +96,42 @@ router.get('/profile', ensureAuth, async(req, res) => {
 })
 
 /*--------------- DATABASE ACTIONS ---------------*/
+
+/*
+@desc Export Volunteer Data
+@route GET /a/export-volunteer
+*/
+const { exportVolSummaryCSV } = require('../utils/exportData')
+const { writeFile } = require('../utils/fileIO')
+
+router.get('/export-volunteer', async (req, res) => {
+  let fileName = "VolunteerData"
+
+  let voldat = await VUsers.find()
+  let data = []
+  let current_year = new Date().getFullYear()
+  voldat.forEach(user => {
+    let sum = {
+      "Name": user.first_name + " " + user.last_name,
+      "Email": user.email,
+      "Award Year": current_year,
+      "Age Group": getAgeGroup(user.birth_year, user.birth_month),
+      "Total Hours": user.total_hours
+    }
+    data.push(sum)
+  })
+
+  // Write and download the file
+  let filedata = exportVolSummaryCSV(data)
+  console.log(filedata)
+  writeFile(fileName, filedata)
+  let filepath = "VolunteerData.csv"
+  res.download(filepath, "Volunteers Data.csv", async (err) => {
+    if (err) throw err
+    res.redirect('/a/manage-accounts')
+  })
+
+})
 
 /*
 @desc Change Password
@@ -402,6 +439,25 @@ router.post('/confirm-rec', ensureAuth, (req, res) => {
 })
 
 //functions
+function getAgeGroup(year, month) {
+  let birth = new Date(year, month);
+  let diff_ms = Date.now() - birth.getTime();
+  let age_dt = new Date(diff_ms);
+  let age = Math.abs(age_dt.getUTCFullYear() - 1970);
+
+  switch (true) {
+    case (age >= 5 && age <= 10):
+      return "Kids"
+    case (age >= 11 && age <= 15):
+      return "Teens"
+    case (age >= 16 && age <= 25):
+      return "Young Adults"
+    case (age >= 26):
+      return "Adults"
+    default:
+      return "Invalid Age"
+  }
+}
 
 async function updateNewUsers() {
   let doc = await Config.findById(cid).exec()
