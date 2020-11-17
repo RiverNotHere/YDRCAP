@@ -8,13 +8,10 @@
 const fs = require('fs')
 
 module.exports = {
-  writeFile: async (filename, data) => {
-    let filepath = `${filename}.csv`
+  writeFile: (filename, data) => {
+    let filepath = `files/${filename}.csv`
     // await fs.unlink(filepath, (err) => {if(err) throw err})
     console.log(data)
-    await fs.appendFile(filepath, data, (err) => {
-      if (err) throw err;
-      console.log('Saved!');
-    })
+    fs.writeFileSync(filepath, data)
   }
 }
