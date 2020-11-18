@@ -15,8 +15,6 @@ module.exports = {
       try {
         const parser = new Parser()
         const csv = parser.parse(data)
-        console.log(data)
-        console.log(csv)
         return csv
       } catch (err) {
         console.error(err)

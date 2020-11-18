@@ -21,7 +21,9 @@
     $('#staffTable').DataTable();
     $('#staffTable_length').hide();
 
-    $('#memberTable').DataTable();
+    $('#memberTable').DataTable({
+      "order": [[5, "desc"]]
+    });
     $('#memberTable_length').hide();
   })
 </script>
