@@ -374,10 +374,19 @@ router.get('/edit-record', ensureAuth, (req, res) => {
   })
 })
 
-router.post('/edit-record', ensureAuth, (req, res) => {
-  Records.findByIdAndUpdate(req.query.id, req.body).then(record => {
+router.post('/edit-record', ensureAuth, async (req, res) => {
+  function sum(a, b) {
+    return a + b
+  }
+
+  let prev = await Records.findById(req.query.id)
+  let hoursUpdated = sum(parseFloat(req.body.hours_recorded), parseFloat(req.body.additional_hours)) - sum(parseFloat(prev.hours_recorded), parseFloat(prev.additional_hours))
+  // console.log(req.body.hours_recorded + " " + req.body.additional_hours + ":" + prev.hours_recorded + " " + prev.additional_hours)
+  // console.log(hoursUpdated)
+  Records.findByIdAndUpdate(req.query.id, req.body).then(async record => {
     console.log(record);
     if(record) {
+      await VUsers.findOneAndUpdate({ userid: record.userid }, { $inc: { total_hours: hoursUpdated } })
       req.flash('success_msg', 'Changes successfully saved');
       res.redirect( `/a/edetails?id=${req.query.id}`)
     }
