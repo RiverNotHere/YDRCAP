@@ -419,29 +419,25 @@ router.get('/delrec',  ensureAuth, async(req, res) => {
 @desc Confirm Record
 @route POST /a/confirm-rec?id={recid}&coordinator={coordinator}
 */
-router.post('/confirm-rec', ensureAuth, (req, res) => {
+router.post('/confirm-rec', ensureAuth, async (req, res) => {
   console.log('id: '+req.query.id+'|coordinator: '+req.query.coordinator)
   let backURL = req.header('Referer') || '/';
   console.log(req.body)
-  if(req.body.ahrs) {
-    Records.findByIdAndUpdate(req.query.id, { $set: { status: 1, coordinator: req.query.coordinator }, $inc: { additional_hours: parseFloat(req.body.ahrs) } })
-        .then(record => {
-          console.log("userid: "+record.userid)
-          VUsers.findOneAndUpdate({ userid: record.userid }, { $inc: { total_hours: record.additional_hours + record.hours_recorded } })
-              .then(user => { console.log(user); req.flash('success_msg', 'Record confirmed'); res.redirect(backURL) })
-              .catch(err => console.log(err))
-        })
-        .catch(err => console.log(err))
-  }else {
-    Records.findByIdAndUpdate(req.query.id, { $set: { status: 1, coordinator: req.query.coordinator } })
-        .then(record => {
-          console.log("userid: "+record.userid)
-          VUsers.findOneAndUpdate({ userid: record.userid }, { $inc: { total_hours: record.additional_hours + record.hours_recorded } })
-              .then(user => { console.log(user); req.flash('success_msg', 'Record confirmed'); res.redirect(backURL) })
-              .catch(err => console.log(err))
-        })
-        .catch(err => console.log(err))
-  }
+  let ahrs = 0;
+  if (req.body.ahrs) ahrs = req.body.ahrs;
+  await Records.findByIdAndUpdate(req.query.id, { $inc: { additional_hours: ahrs } })
+  Records.findByIdAndUpdate(req.query.id, { $set: { status: 1, coordinator: req.query.coordinator } })
+      .then(record => {
+        console.log("userid: "+record.userid)
+        VUsers.findOneAndUpdate({ userid: record.userid }, { $inc: { total_hours: record.additional_hours + record.hours_recorded } })
+            .then(user => {
+              console.log(user);
+              req.flash('success_msg', 'Record confirmed');
+              res.redirect(backURL);
+            })
+            .catch(err => console.log(err))
+      })
+      .catch(err => console.log(err))
 })
 
 //functions
