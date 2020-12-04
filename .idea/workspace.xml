@@ -28,7 +28,6 @@
   <component name="ChangeListManager">
     <list default="true" id="d9540d9b-c350-44f2-817d-584499beeff8" name="默认的" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/portal.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/portal.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -181,7 +180,7 @@
       <workItem from="1605296069963" duration="5196000" />
       <workItem from="1605482407067" duration="9390000" />
       <workItem from="1606061628612" duration="1758000" />
-      <workItem from="1606189460687" duration="823000" />
+      <workItem from="1606189460687" duration="1079000" />
     </task>
     <task id="LOCAL-00001" summary="saved 2020-10-31 08:19 AM">
       <created>1604157629272</created>
@@ -288,7 +287,14 @@
       <option name="project" value="LOCAL" />
       <updated>1606063267735</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="Update 2020-11-23 08:11 PM">
+      <created>1606191075984</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1606191075984</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -337,7 +343,8 @@
     <MESSAGE value="Saved 2020-11-03 2:16 PM PST" />
     <MESSAGE value="Updated 2020-11-16 12:30 PM" />
     <MESSAGE value="Updated 2020-11-22 08:40 AM" />
-    <option name="LAST_COMMIT_MESSAGE" value="Updated 2020-11-22 08:40 AM" />
+    <MESSAGE value="Update 2020-11-23 08:11 PM" />
+    <option name="LAST_COMMIT_MESSAGE" value="Update 2020-11-23 08:11 PM" />
   </component>
   <component name="WindowStateProjectService">
     <state x="184" y="123" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1604157204491">
@@ -381,10 +388,10 @@
     </state>
     <state x="101" y="109" key="SettingsEditor/0.0.1440.900@0.0.1440.900" timestamp="1604158252912" />
     <state x="101" y="129" key="SettingsEditor/0.23.1440.877@0.23.1440.877" timestamp="1604618877643" />
-    <state x="320" y="201" key="Vcs.Push.Dialog.v2" timestamp="1606063288655">
+    <state x="320" y="201" key="Vcs.Push.Dialog.v2" timestamp="1606191081209">
       <screen x="0" y="23" width="1440" height="877" />
     </state>
-    <state x="320" y="201" key="Vcs.Push.Dialog.v2/0.23.1440.877@0.23.1440.877" timestamp="1606063288655" />
+    <state x="320" y="201" key="Vcs.Push.Dialog.v2/0.23.1440.877@0.23.1440.877" timestamp="1606191081209" />
     <state x="493" y="143" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1604692079378">
       <screen x="0" y="23" width="1440" height="877" />
     </state>

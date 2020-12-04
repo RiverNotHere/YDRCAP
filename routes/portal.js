@@ -380,6 +380,7 @@ router.post('/edit-record', ensureAuth, async (req, res) => {
   }
 
   let prev = await Records.findById(req.query.id)
+  if (!req.body.additional_hours) req.body.additional_hours = 0
   let hoursUpdated = sum(parseFloat(req.body.hours_recorded), parseFloat(req.body.additional_hours)) - sum(parseFloat(prev.hours_recorded), parseFloat(prev.additional_hours))
   // console.log(req.body.hours_recorded + " " + req.body.additional_hours + ":" + prev.hours_recorded + " " + prev.additional_hours)
   // console.log(hoursUpdated)
@@ -423,9 +424,8 @@ router.post('/confirm-rec', ensureAuth, async (req, res) => {
   console.log('id: '+req.query.id+'|coordinator: '+req.query.coordinator)
   let backURL = req.header('Referer') || '/';
   console.log(req.body)
-  let ahrs = 0;
-  if (req.body.ahrs) ahrs = req.body.ahrs;
-  await Records.findByIdAndUpdate(req.query.id, { $inc: { additional_hours: ahrs } })
+  let ahrs = req.body.ahrs ? parseFloat(req.body.ahrs) : 0;
+  await Records.findByIdAndUpdate(req.query.id, { $inc: { additional_hours: ahrs} })
   Records.findByIdAndUpdate(req.query.id, { $set: { status: 1, coordinator: req.query.coordinator } })
       .then(record => {
         console.log("userid: "+record.userid)
