@@ -20,6 +20,9 @@ const { ensureAuth } = require('../config/auth')
 
 const cid = "5f83a19caed5b31337810f36"
 
+// Utils
+const { getTotalHours } = require('../utils/userInfo')
+
 /*
 @desc View User
 @route GET /u/{userid}?type={staff/volunteer}
@@ -45,6 +48,8 @@ router.get('/:id', ensureAuth, async(req, res) => {
     let user = await VUsers.findById(req.params.id).lean()
     let records = await Record.find({ userid: user.userid }).lean()
     console.log(records)
+
+    user.total_hours = await getTotalHours(user.userid)
 
     if(user) {
       console.log(user)

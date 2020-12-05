@@ -21,6 +21,9 @@ const CryptoJS = require('crypto-js')
 
 const cid = "5f83a19caed5b31337810f36"
 
+// Utils
+const { getTotalHours } = require('../utils/userInfo')
+
 /*
 @desc Dashboard
 @route GET /a/dashboard
@@ -52,9 +55,23 @@ router.get('/dashboard', ensureAuth, async(req, res) => {
 @desc Manage Account
 @route GET /a/manage-accounts
 */
+
+ async function asyncForEach(array, callback) {
+   // this represents our array
+  for (let index = 0; index < array.length; index++) {
+    // We call the callback for each entry
+    callback(array[index], index, this);
+  }
+ }
+
 router.get('/manage-accounts', ensureAuth, async(req, res) => {
   let users = await User.find({}).lean()
   let vusers = await VUsers.find({}).lean()
+
+  await Promise.all(vusers.map(async(user) => {
+    user.total_hours = await getTotalHours(user.userid)
+    console.log(`Userid: ${user.userid} | ${user.total_hours}`)
+  }))
 
   res.render('manage-accounts', {
     maccounts: 'active',
@@ -278,6 +295,9 @@ router.post('/edit-account', ensureAuth, async(req, res) => {
 //   8: "Normal Zoom Class Co-Hosting",
 // }
 
+
+// RECORD ACTION (TIME)
+
 /*
 @desc Add Record
 @route POST /a/newrec
@@ -381,13 +401,13 @@ router.post('/edit-record', ensureAuth, async (req, res) => {
 
   let prev = await Records.findById(req.query.id)
   if (!req.body.additional_hours) req.body.additional_hours = 0
-  let hoursUpdated = sum(parseFloat(req.body.hours_recorded), parseFloat(req.body.additional_hours)) - sum(parseFloat(prev.hours_recorded), parseFloat(prev.additional_hours))
+  // let hoursUpdated = sum(parseFloat(req.body.hours_recorded), parseFloat(req.body.additional_hours)) - sum(parseFloat(prev.hours_recorded), parseFloat(prev.additional_hours))
   // console.log(req.body.hours_recorded + " " + req.body.additional_hours + ":" + prev.hours_recorded + " " + prev.additional_hours)
   // console.log(hoursUpdated)
   Records.findByIdAndUpdate(req.query.id, req.body).then(async record => {
     console.log(record);
     if(record) {
-      await VUsers.findOneAndUpdate({ userid: record.userid }, { $inc: { total_hours: hoursUpdated } })
+      // await VUsers.findOneAndUpdate({ userid: record.userid }, { $inc: { total_hours: hoursUpdated } })
       req.flash('success_msg', 'Changes successfully saved');
       res.redirect( `/a/edetails?id=${req.query.id}`)
     }
@@ -400,15 +420,15 @@ router.post('/edit-record', ensureAuth, async (req, res) => {
 */
 router.get('/delrec',  ensureAuth, async(req, res) => {
   let record = await Records.findById(req.query.id)
+  // let hours_deleted = -(record.hours_recorded + record.additional_hours)
   console.log(record)
   if (record.status == 1) {
     await Records.findByIdAndDelete(record._id)
-    await VUsers.findOneAndUpdate({ userid: record.userid }, { $inc: { total_hours: -(record.hours_recorded + record.additional_hours) } })
+    // await VUsers.findOneAndUpdate({ userid: record.userid }, { $inc: { total_hours:  hours_deleted } })
     req.flash('success_msg', 'Record successfully deleted!')
     res.redirect('/a/records')
   }
-
-  if (record.status == 0) {
+  else {
     await Records.findByIdAndDelete(record._id)
     req.flash('success_msg', 'Record successfully deleted!')
     res.redirect('/a/records')
@@ -428,19 +448,16 @@ router.post('/confirm-rec', ensureAuth, async (req, res) => {
   await Records.findByIdAndUpdate(req.query.id, { $inc: { additional_hours: ahrs} })
   Records.findByIdAndUpdate(req.query.id, { $set: { status: 1, coordinator: req.query.coordinator } })
       .then(record => {
-        console.log("userid: "+record.userid)
-        VUsers.findOneAndUpdate({ userid: record.userid }, { $inc: { total_hours: record.additional_hours + record.hours_recorded } })
-            .then(user => {
-              console.log(user);
-              req.flash('success_msg', 'Record confirmed');
-              res.redirect(backURL);
-            })
-            .catch(err => console.log(err))
+        // console.log("userid: "+ record.userid)
+        // VUsers.findOneAndUpdate({ userid: record.userid }, { $inc: { total_hours: record.additional_hours + record.hours_recorded } })
+        req.flash('success_msg', 'Record confirmed');
+        res.redirect(backURL);
       })
       .catch(err => console.log(err))
 })
 
-//functions
+
+// FUNCTIONS
 function getAgeGroup(year, month) {
   let birth = new Date(year, month);
   let diff_ms = Date.now() - birth.getTime();
