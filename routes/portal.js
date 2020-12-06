@@ -124,19 +124,19 @@ const { writeFile } = require('../utils/fileIO')
 router.get('/export-volunteer', async (req, res) => {
   let fileName = "VolunteerData"
 
-  let voldat = await VUsers.find()
+  let voldat = await VUsers.find().sort({ userid: 1 })
   let data = []
   let current_year = new Date().getFullYear()
-  voldat.forEach(user => {
+  await Promise.all(voldat.map(async(user) => {
     let sum = {
       "Name": user.first_name + " " + user.last_name,
       "Email": user.email,
       "Award Year": current_year,
       "Age Group": getAgeGroup(user.birth_year, user.birth_month),
-      "Total Hours": user.total_hours
+      "Total Hours": await getTotalHours(user.userid)
     }
     data.push(sum)
-  })
+  }))
 
   // Write and download the file
   let filedata = exportVolSummaryCSV(data)
