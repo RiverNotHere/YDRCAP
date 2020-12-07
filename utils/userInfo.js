@@ -2,7 +2,7 @@ const Records = require('../models/Record')
 
 module.exports = {
   getTotalHours: async(userid) => {
-    let records = await Records.find({ userid: userid  })
+    let records = await Records.find({ userid: userid, status: 1  })
     let total_hours = 0
     records.forEach(record => {
       total_hours += (record.hours_recorded + record.additional_hours)
