@@ -23,6 +23,7 @@ const cid = "5f83a19caed5b31337810f36"
 
 // Utils
 const { getTotalHours } = require('../utils/userInfo')
+const { isSelected, newSelectGroup } = require('../utils/recInfo')
 
 /*
 @desc Dashboard
@@ -30,7 +31,7 @@ const { getTotalHours } = require('../utils/userInfo')
 */
 router.get('/dashboard', ensureAuth, async(req, res) => {
   let configs = await Config.findById(cid)
-  let records = await Records.find({ status: 0 }).sort({ created_at: 1 }).limit(10).lean()
+  let records = await Records.find({ status: 0 }).sort({ created_at: 1 }).limit(20).lean()
   let cname = req.user.first_name + " " + req.user.last_name
   console.log(cname)
   console.log(records)
@@ -55,14 +56,6 @@ router.get('/dashboard', ensureAuth, async(req, res) => {
 @desc Manage Account
 @route GET /a/manage-accounts
 */
-
- async function asyncForEach(array, callback) {
-   // this represents our array
-  for (let index = 0; index < array.length; index++) {
-    // We call the callback for each entry
-    callback(array[index], index, this);
-  }
- }
 
 router.get('/manage-accounts', ensureAuth, async(req, res) => {
   let users = await User.find({}).lean()
@@ -379,19 +372,20 @@ router.get('/edetails', ensureAuth, (req, res) => {
 @desc  Edit Record
 @route GET || POST /a/edit-record?id={any}
 */
-router.get('/edit-record', ensureAuth, (req, res) => {
+router.get('/edit-record', ensureAuth, async(req, res) => {
   // let cname = req.user.first_name + " " + req.user.last_name
-  Records.findById(req.query.id).lean().then(record => {
-    console.log(record)
-    if(record) {
-      res.render('edit-record', {
-        record: record,
-        // coordinator_name: cname,
-      })
-    }else {
-      res.redirect('/a/dashboard');
-    }
-  })
+  let record = await Records.findById(req.query.id).lean()
+  console.log(record)
+  let evt = await generateSelection(record._id);
+  if(record) {
+    res.render('edit-record', {
+      record: record,
+      event_selector: evt
+      // coordinator_name: cname,
+    })
+  }else {
+    res.redirect('/a/dashboard');
+  }
 })
 
 router.post('/edit-record', ensureAuth, async (req, res) => {
@@ -476,6 +470,34 @@ function getAgeGroup(year, month) {
     default:
       return "Invalid Age"
   }
+}
+
+async function generateSelection(recID) {
+  let data = await Config.findById('5fb9bd64bff9559e758b745d')
+  data = data.toObject()
+  delete data._id
+  console.log(data)
+  let evtTypes = `<select name="event_type" required>\n<option value="" disabled>Please Select</option>`;
+  for (let itemId in data) {
+    // console.log(item + ": " + data[item] + "\n"
+    //     + "is Object: " + (data[item] instanceof Object))
+    let item = data[itemId]
+    if (item instanceof Object) {
+      // console.log(itemId, item)
+      evtTypes += await newSelectGroup(itemId, item, recID)
+    } else {
+      // if (isSelected(rec._id, item))
+      //   evtTypes += `\n<option value="${item}" selected>${item}</option>`
+      // else
+      console.log(await isSelected(recID, item))
+      if (await isSelected(recID, item))
+        evtTypes += `\n<option value="${item}" selected>${item}</option>`
+      else
+        evtTypes += `\n<option value="${item}">${item}</option>`
+    }
+  }
+  evtTypes += `\n</select>`
+  return evtTypes
 }
 
 async function updateNewUsers() {

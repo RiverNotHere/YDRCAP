@@ -24,14 +24,14 @@
     "crypto-js": "^4.0.0",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
-    "express-handlebars": "^5.1.0",
+    "express-handlebars": "^5.2.0",
     "express-session": "^1.17.1",
-    "json2csv": "^5.0.4",
+    "json2csv": "^5.0.5",
     "moment": "^2.29.1",
-    "mongoose": "^5.10.9",
+    "mongoose": "^5.11.9",
     "passport": "^0.4.1",
     "passport-local": "^1.0.0",
-    "sass": "^1.27.0"
+    "sass": "^1.32.0"
   },
   "devDependencies": {
     "jest": "^26.6.1",

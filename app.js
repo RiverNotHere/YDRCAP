@@ -18,8 +18,8 @@ const exphbs = require('express-handlebars')
 const moment = require('moment')
 
 //Express Sessions
-const flash = require('connect-flash');
-const session = require('express-session');
+const flash = require('connect-flash')
+const session = require('express-session')
 app.use(session({
   secret: 'secret',
   resave: true,
@@ -30,22 +30,29 @@ app.use(flash());
 const connectDB = require('./config/db')
 connectDB()
 
-const passport = require('passport');
+const passport = require('passport')
 
 // Passport Config
-require('./config/passport')(passport);
+require('./config/passport')(passport)
 
 // Passport middleware
-app.use(passport.initialize());
-app.use(passport.session());
+app.use(passport.initialize())
+app.use(passport.session())
 
 //Global vars
 app.use((req, res, next) => {
-  res.locals.success_msg = req.flash('success_msg');
-  res.locals.error_msg = req.flash('error_msg');
-  res.locals.error = req.flash('error');
-  next();
+  res.locals.success_msg = req.flash('success_msg')
+  res.locals.error_msg = req.flash('error_msg')
+  res.locals.error = req.flash('error')
+  next()
 })
+
+// Utils
+const { isSelected, newSelectGroup } = require('./utils/recInfo')
+
+// Models
+const Records = require('./models/Record')
+const Config = require('./models/Config')
 
 // Handlebars Config
 app.engine('.hbs', exphbs({
@@ -54,33 +61,40 @@ app.engine('.hbs', exphbs({
 
   // Customized Helpers
   helpers: {
-    formatDate: (datetime, format) => { // Format Date
-      return moment(datetime).format(format);
+    // Format Date
+    formatDate: (datetime, format) => {
+      return moment(datetime).format(format)
     },
-    switch: (val) => { // Get Status
-      switch (val) {
+
+    // Get Status
+    switch: (status) => {
+      switch (status) {
         case 0:
-          return '<font color="red">Unconfirmed</font>';
-          break;
+          return '<font color="red">Unconfirmed</font>'
+          break
         case 1:
-          return '<font color="green">Confirmed</font>';
-          break;
+          return '<font color="green">Confirmed</font>'
+          break
         default:
-          return null;
+          return null
       }
     },
-    sum: (a, b) => { // Get sum
-      return a + b;
+
+    // Get sum
+    sum: (a, b) => {
+      return a + b
     },
-    getStat: (now, before, period) => { // Calculating the increase/decreases
-      let decreaseValue = before - now;
-      let perc = (decreaseValue / before) * 100;
+
+    // Calculating the increase/decreases
+    getStat: (now, before, period) => {
+      let decreaseValue = before - now
+      let perc = (decreaseValue / before) * 100
       console.log(perc)
       console.log(perc > 0)
       if(period == 'day') {
-        period = 'yesterday';
+        period = 'yesterday'
       } else {
-        period = "last " + period;
+        period = "last " + period
       }
       if (perc > 0) {
         return `<font color="red"><i class="material-icons">arrow_downward</i> ${Math.abs(+parseFloat(perc.toFixed(2)))}% since ${period}</font>`
@@ -88,18 +102,24 @@ app.engine('.hbs', exphbs({
         return `<font color="green"><i class="material-icons">arrow_upward</i> ${Math.abs(+parseFloat(perc.toFixed(2)))}% since ${period}</font>`
       }
     },
-    isshow: (status) => { // Determine showing or not
+
+    // Determine showing or not
+    // ${status}: 0 || 1 (unapproved/approved)
+    isshow: (status) => {
       if (status == 0) {
         return ''
       } else {
         return 'hide'
       }
     },
+
+    // Get Age Group
+    // Rule from PVSA
     getAgeGroup: (year, month) => {
       let dob = new Date(year, month)
-      let diff_ms = Date.now() - dob.getTime();
-      let age_dt = new Date(diff_ms);
-      let age = Math.abs(age_dt.getUTCFullYear() - 1970);
+      let diff_ms = Date.now() - dob.getTime()
+      let age_dt = new Date(diff_ms)
+      let age = Math.abs(age_dt.getUTCFullYear() - 1970)
 
       switch (true) {
         case (age >= 5 && age <= 10):
@@ -113,12 +133,12 @@ app.engine('.hbs', exphbs({
         default:
           return "Invalid Age"
       }
-    }
+    },
   }
 }));
-app.set('view engine', '.hbs');
+app.set('view engine', '.hbs')
 
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'public')))
 
 //DB Models
 const User = require('./models/User')
@@ -132,11 +152,10 @@ app.use('/', require('./routes/user'))
 app.use('/a/', require('./routes/portal'))
 app.use('/u/', require('./routes/account'))
 
-
 //Error Handling
 // Handle 404
 app.use(function (req, res) {
-  res.render('./errors/404');
+  res.render('./errors/404')
 });
 
 // Handle 500

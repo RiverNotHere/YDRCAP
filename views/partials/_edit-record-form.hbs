@@ -10,7 +10,7 @@
       <div class="row">
         <div class="col l4 m6 s6">
           <label>Event Type:</label>
-          <input type="text" disabled value="{{record.event_type}}" disabled>
+          {{{event_selector}}}
         </div>
 
         <div class="col l3 m6 s6">
@@ -70,5 +70,6 @@
 
 <script>
   M.Modal.init(document.querySelectorAll('.modal'))
+  M.FormSelect.init(document.querySelectorAll('select'))
   // M.Datepicker.init(document.querySelectorAll('.datepicker'))
 </script>
