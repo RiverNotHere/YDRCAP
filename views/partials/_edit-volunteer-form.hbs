@@ -55,6 +55,30 @@
           <input type="text" name="last_name" value="{{user.last_name}}">
         </div>
       </div>
+
+      <div class="row">
+        <div class="input-field col l8 m6 s12">
+          <label for="school_name">School Name</label>
+          <input id="school_name" name="school_name" required type="text" value="{{user.school_name}}">
+        </div>
+        <div class="input-field col l4 m6 s12">
+          <label for="grade">Grade Level</label>
+          <input id="grade" name="grade" type="text" value="{{user.grade}}" required>
+        </div>
+      </div>
+      
+      <div class="row">
+        <div class="input-field col l12 m12 s12">
+          <label for="is_citizen_or_greencard">
+            {{#if user.is_citizen_or_greencard}}
+            <input id="is_citizen_or_greencard" name="is_citizen_or_greencard" type="checkbox" checked>
+            {{else}}
+            <input id="is_citizen_or_greencard" name="is_citizen_or_greencard" type="checkbox">
+            {{/if}}
+            <span>Green Card Holder/United State Citizen</span>
+          </label>
+        </div>
+      </div>
     </form>
 
     <!-- Footer -->

@@ -265,7 +265,11 @@ router.post('/edit-account', ensureAuth, async(req, res) => {
       req.flash('error_msg', 'Email already registered, please use another one')
       res.redirect(backURL)
     }else {
-      VUsers.findByIdAndUpdate(req.query.id, req.body).then(user => {
+      let info = req.body;
+      console.log(info);
+      info["is_citizen_or_greencard"] =
+        info["is_citizen_or_greencard"] === "on" ? true : false;
+      VUsers.findByIdAndUpdate(req.query.id, info).then(user => {
         console.log(user)
         if(user) {
           req.flash('success_msg', 'Changes successfully saved')
@@ -389,19 +393,14 @@ router.get('/edit-record', ensureAuth, async(req, res) => {
 })
 
 router.post('/edit-record', ensureAuth, async (req, res) => {
-  function sum(a, b) {
-    return a + b
-  }
 
   let prev = await Records.findById(req.query.id)
-  if (!req.body.additional_hours) req.body.additional_hours = 0
   // let hoursUpdated = sum(parseFloat(req.body.hours_recorded), parseFloat(req.body.additional_hours)) - sum(parseFloat(prev.hours_recorded), parseFloat(prev.additional_hours))
   // console.log(req.body.hours_recorded + " " + req.body.additional_hours + ":" + prev.hours_recorded + " " + prev.additional_hours)
   // console.log(hoursUpdated)
   Records.findByIdAndUpdate(req.query.id, req.body).then(async record => {
     console.log(record);
     if(record) {
-      // await VUsers.findOneAndUpdate({ userid: record.userid }, { $inc: { total_hours: hoursUpdated } })
       req.flash('success_msg', 'Changes successfully saved');
       res.redirect( `/a/edetails?id=${req.query.id}`)
     }
@@ -438,8 +437,6 @@ router.post('/confirm-rec', ensureAuth, async (req, res) => {
   console.log('id: '+req.query.id+'|coordinator: '+req.query.coordinator)
   let backURL = req.header('Referer') || '/';
   console.log(req.body)
-  let ahrs = req.body.ahrs ? parseFloat(req.body.ahrs) : 0;
-  await Records.findByIdAndUpdate(req.query.id, { $inc: { additional_hours: ahrs} })
   Records.findByIdAndUpdate(req.query.id, { $set: { status: 1, coordinator: req.query.coordinator } })
       .then(record => {
         // console.log("userid: "+ record.userid)

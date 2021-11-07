@@ -17,90 +17,11 @@
 
 <div class="row">
 
-  <div class="col l12 m12 s12">
-    <div class="input-field">
-      <a data-target="new-rec" class="btn blue modal-trigger"><i class="material-icons left">playlist_add</i>New Record</a>
-    </div>
-  </div>
-
-  <!-- New Record Modal -->
-  <div id="new-rec" class="modal">
-    <div class="modal-content">
-      <h4>New Record</h4>
-      <br>
-      <form action="/a/newrec" method="POST" id="new-record">
-        <div class="input-field">
-          <label>Userid (who you want to add to)</label>
-          <input type="text" name="userid" placeholder="Ex. Y-10001">
-        </div>
-
-        <div class="input-field">
-          <select name="evt_type" required>
-            <label>Event Type</label>
-            <option value="" disabled selected>Please Select</option>
-
-            <optgroup label="Normal Zoom Class">
-              <option value="1">Class Teaching</option>
-              <option value="8">Class Co-Hosting</option>
-            </optgroup>
-
-            <optgroup label="Chinese Daka Class">
-              <option value="2">Chinese Daka Teaching</option>
-              <option value="4">Chinese Daka Training</option>
-            </optgroup>
-
-            <optgroup label="Math Mammoth Study Group">
-              <option value="5">Math Mammoth Study Group Teaching</option>
-              <option value="6">Math Mammoth Study Group Teacher Meeting</option>
-            </optgroup>
-
-            <optgroup label="English Reading Group">
-              <option value="7">English Study Group Teaching</option>
-            </optgroup>
-
-            <option id="other" value="0">Other Event</option>
-          </select>
-          <label>Event Type</label>
-        </div>
-
-        <div id="sdate" class="input-field">
-          <label>Start Time</label>
-          <input type="text" name="start_time" required class="validate" placeholder="Ex. Dec 24, 2020 12:00 AM"/>
-        </div>
-
-        <div id="edate" class="input-field">
-          <label>End Time</label>
-          <input type="text" name="end_time" required class="validate" placeholder="Ex. Dec 25, 2020 12:00 AM"/>
-        </div>
-
-        <div class="input-field">
-          <label>Duration</label>
-          <input type="text" required name="duration">
-        </div>
-
-        <div class="input-field">
-          <label>Additional Hours</label>
-          <input type="text" name="ahrs"/>
-        </div>
-
-        <div class="input-field">
-          <label>Event Description (optional)</label>
-          <textarea name="evt_desc" class="materialize-textarea" data-length="300"></textarea>
-        </div>
-      </form>
-    </div>
-    <div class="modal-footer">
-      <button class="modal-close waves-effect waves-green btn-flat">Cancel</button>
-      <button form="new-record" type="submit" class="modal-close waves-effect waves-green btn-flat">Add</button>
-    </div>
-  </div>
-
   <!-- Data Table -->
   <div class="col l12 m12 s11">
     <table id="recTable" class="highlight">
       <thead>
         <tr id="th" style="font-weight: bold">
-          <th>Userid</th>
           <th>First Name</th>
           <th class="hide-on-med-and-down">Last Name</th>
           <th class="hide-on-med-and-down">Event Type</th>
@@ -113,12 +34,11 @@
       <tbody>
       {{#each records}}
           <tr>
-            <td onclick="window.location.href = '/a/edetails?id={{this._id}}'">{{this.userid}}</td>
             <td onclick="window.location.href = '/a/edetails?id={{this._id}}'">{{this.first_name}}</td>
             <td class="hide-on-med-and-down" onclick="window.location.href = '/a/edetails?id={{this._id}}'">{{this.last_name}}</td>
             <td class="hide-on-med-and-down" onclick="window.location.href = '/a/edetails?id={{this._id}}'">{{this.event_type}}</td>
             <td onclick="window.location.href = '/a/edetails?id={{this._id}}'">{{formatDate this.start_time "YYYY-MM-DD"}}</td>
-            <td onclick="window.location.href = '/a/edetails?id={{this._id}}'">{{sum this.hours_recorded this.additional_hours}}</td>
+            <td onclick="window.location.href = '/a/edetails?id={{this._id}}'">{{this.hours_recorded}}</td>
             <td>
               <button data-target="m-{{this._id}}" class="btn btn-small waves-effect waves-light modal-trigger {{isshow this.status}}">
                 <i class="material-icons">done</i>
@@ -153,10 +73,6 @@
                 and will be valid until it gets deleted
               </p>
               <form id="f-{{this._id}}" method="POST" action="/a/confirm-rec?id={{this._id}}&coordinator={{../coordinator_name}}">
-              <div class="input-field">
-                <label for="ahrs">Additional Hours</label>
-                <input type="text" name="ahrs"/>
-              </div>
               </form>
             </div>
             <div class="modal-footer">

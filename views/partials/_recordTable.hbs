@@ -19,7 +19,7 @@
           <td onclick="window.location.href = '/a/edetails?id={{this._id}}'">{{this.last_name}}</td>
           <td onclick="window.location.href = '/a/edetails?id={{this._id}}'">{{this.event_type}}</td>
           <td onclick="window.location.href = '/a/edetails?id={{this._id}}'">{{formatDate this.start_time "YYYY-MM-DD"}}</td>
-          <td onclick="window.location.href = '/a/edetails?id={{this._id}}'">{{sum this.hours_recorded this.additional_hours}}</td>
+          <td onclick="window.location.href = '/a/edetails?id={{this._id}}'">{{this.hours_recorded}}</td>
           <td><button data-target="m-{{this._id}}" class="btn btn-small waves-effect waves-light modal-trigger">Confirm</button></td>
         </tr>
         <!-- Modal Structure -->
@@ -31,10 +31,6 @@
               and will be valid until it gets deleted
             </p>
             <form id="f-{{this._id}}" method="POST" action="/a/confirm-rec?id={{this._id}}&coordinator={{../coordinator_name}}">
-              <div class="input-field">
-                <label for="ahrs">Additional Hours</label>
-                <input type="text" name="ahrs"/>
-              </div>
             </form>
           </div>
           <div class="modal-footer">

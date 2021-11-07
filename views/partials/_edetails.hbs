@@ -56,10 +56,6 @@
         <label>Hours Recorded:</label>
         <input type="number" disabled value="{{record.hours_recorded}}">
       </div>
-      <div class="col l4 m6 s6">
-        <label>Additional Hours:</label>
-        <input type="number" disabled value="{{record.additional_hours}}">
-      </div>
     </div>
 
     <div class="row">
@@ -100,11 +96,7 @@
           Once you confirmed this record, the time will be added to the user’s profile according to the hours recorded
           and will be valid until it gets deleted
         </p>
-        <form id="f-{{record._id}}" method="POST" action="/a/confirm-rec?id={{record._id}}&coordinator={{coordinator_name}}">
-        <div class="input-field">
-          <label for="ahrs">Additional Hours</label>
-          <input type="text" name="ahrs"/>
-        </div>
+        <form id="f-{{record._id}}" method="POST" action="/a/confirm-rec?id={{record._id}}&coordinator={{../coordinator_name}}">
         </form>
       </div>
       <div class="modal-footer">
@@ -124,37 +116,3 @@
   M.Modal.init(document.querySelectorAll('.modal'))
   M.Datepicker.init(document.querySelectorAll('.datepicker'))
 </script>
-
-<!-- Unused Yet -->
-<!--<script>-->
-<!--  function checkopt() {-->
-<!--  let edate = document.getElementById('edate');-->
-<!--  let sdate = document.getElementById('sdate');-->
-<!--  let sdate_label = document.getElementById('sdate-label');-->
-<!--  let selected = document.getElementById("other").selected;-->
-
-<!--  let stime = document.getElementById('stime');-->
-<!--  let etime = document.getElementById('etime');-->
-<!--  let evt_stime = document.getElementById('evt_stime');-->
-<!--  let evt_etime = document.getElementById('evt_etime');-->
-
-<!--  if (selected) {-->
-<!--    edate.style.display = "block";-->
-<!--    sdate.className = "input-field col s3";-->
-<!--    sdate_label.innerHTML = "Start Date";-->
-
-<!--    evt_stime.removeAttribute("required");-->
-<!--    stime.style.display = "none";-->
-<!--    evt_etime.removeAttribute("required");-->
-<!--    etime.style.display = "none";-->
-<!--  } else {-->
-<!--    edate.style.display = "none";-->
-<!--    sdate.className = "input-field col s6";-->
-<!--    sdate_label.innerHTML = "Event Date";-->
-
-<!--    evt_stime.setAttribute("required", "required");-->
-<!--    stime.style.display = "block";-->
-<!--    evt_etime.setAttribute("required", "required");-->
-<!--    etime.style.display = "block";-->
-<!--  }-->
-<!--}</script>-->

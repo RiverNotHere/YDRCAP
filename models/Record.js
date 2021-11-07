@@ -8,7 +8,7 @@
 const mongoose = require('mongoose')
 
 const RecordSchema = new mongoose.Schema({
-    userid: {
+    email: {
         type: String,
         required: true
     },
@@ -27,13 +27,6 @@ const RecordSchema = new mongoose.Schema({
     hours_recorded: {
         type: Number,
         required: true
-    },
-    additional_hours: {
-        type: Number,
-        required: true,
-        default: function() {
-            return this.hours_recorded * 0.5
-        }
     },
     status: {
         type: Number,

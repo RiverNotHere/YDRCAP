@@ -10,45 +10,56 @@ const mongoose = require('mongoose')
 const UserSchema = new mongoose.Schema({
   userid: {
     type: String,
-    required: true
+    required: true,
   },
-  total_hours:  {
+  total_hours: {
     type: Number,
-    default: 0
+    default: 0,
   },
   email: {
     type: String,
-    required: true
+    required: true,
   },
   username: {
     type: String,
-    required: true
+    required: true,
   },
   password: {
     type: String,
-    required: true
+    required: true,
   },
   first_name: {
     type: String,
-    required: true
+    required: true,
   },
   middle_name: {
     type: String,
-    required: false
+    required: false,
   },
   last_name: {
     type: String,
-    required: true
+    required: true,
   },
   birth_year: {
     type: Number,
-    required: true
+    required: true,
   },
   birth_month: {
     type: Number,
-    required: true
-  }
-
-})
+    required: true,
+  },
+  school_name: {
+    type: String,
+    required: true,
+  },
+  grade: {
+    type: String,
+    required: true,
+  },
+  is_citizen_or_greencard: {
+    type: Boolean,
+    required: true,
+  },
+});
 
 module.exports = mongoose.model('VUser', UserSchema, 'users');
