@@ -33,9 +33,9 @@ router.get('/dashboard', ensureAuth, async(req, res) => {
   let configs = await Config.findById(cid)
   let records = await Records.find({ status: 0 }).sort({ created_at: 1 }).limit(20).lean()
   let cname = req.user.first_name + " " + req.user.last_name
-  console.log(cname)
-  console.log(records)
-  console.log(configs)
+  // console.log(cname)
+  // console.log(records)
+  // console.log(configs)
   res.render('dashboard', {
     account_page: req.user.account_page,
     dashboard: 'active',
@@ -62,8 +62,8 @@ router.get('/manage-accounts', ensureAuth, async(req, res) => {
   let vusers = await VUsers.find({}).lean()
 
   await Promise.all(vusers.map(async(user) => {
-    user.total_hours = await getTotalHours(user.userid)
-    console.log(`Userid: ${user.userid} | ${user.total_hours}`)
+    user.total_hours = await getTotalHours(user.email)
+    // console.log(`Userid: ${user.userid} | ${user.total_hours}`)
   }))
 
   res.render('manage-accounts', {
@@ -80,8 +80,8 @@ router.get('/manage-accounts', ensureAuth, async(req, res) => {
 router.get('/records', ensureAuth,(req, res) => {
   let cname = req.user.first_name + " " + req.user.last_name
   Records.find({}).lean().then(records => {
-    console.log(records)
-    console.log(cname)
+    // console.log(records)
+    // console.log(cname)
     res.render('records', {
       account_page: req.user.account_page,
       srecords: 'active',
@@ -97,7 +97,7 @@ router.get('/records', ensureAuth,(req, res) => {
 */
 router.get('/profile', ensureAuth, async(req, res) => {
   let profile = await User.findOne({ userid: req.user.userid }).lean()
-  console.log(profile)
+  // console.log(profile)
   res.render('profile', {
     account_page: req.user.account_page,
     profile: 'active',
@@ -133,7 +133,7 @@ router.get('/export-volunteer', async (req, res) => {
 
   // Write and download the file
   let filedata = exportVolSummaryCSV(data)
-  console.log(filedata)
+  // console.log(filedata)
   writeFile(fileName, filedata)
   let filepath = "files/VolunteerData.csv"
   res.download(filepath)
@@ -145,7 +145,7 @@ router.get('/export-volunteer', async (req, res) => {
 @route POST /a/change-password?id={userid}
 */
 router.post('/change-password', ensureAuth, async(req, res) => {
-  console.log(req.body)
+  // console.log(req.body)
   // Validate
   let ori_profile = await User.findById(req.query.id)
   if(CryptoJS.SHA256(req.body.opassword).toString() !== ori_profile.password) {
@@ -181,7 +181,7 @@ router.post('/change-password', ensureAuth, async(req, res) => {
 router.get('/deluser', ensureAuth, (req, res) => {
 
   if (req.query.type == 'staff') {
-    console.log(req.query.id);
+    // console.log(req.query.id);
     User.findByIdAndDelete(req.query.id).then(user => {
       req.flash('success_msg', 'Account successfully deleted')
       res.redirect('/a/manage-accounts')
@@ -189,7 +189,7 @@ router.get('/deluser', ensureAuth, (req, res) => {
   }
 
   if(req.query.type == 'volunteer') {
-    console.log(req.query.id);
+    // console.log(req.query.id);
     VUsers.findByIdAndDelete(req.query.id).then(user => {
       req.flash('success_msg', 'Account successfully deleted')
       res.redirect('/a/manage-accounts')
@@ -204,7 +204,7 @@ router.get('/deluser', ensureAuth, (req, res) => {
 router.get('/edit-account', ensureAuth, (req, res) => {
   if(req.query.type == 'staff') {
     User.findById(req.query.id).lean().then(user => {
-      console.log(user)
+      // console.log(user)
       if(user) {
         res.render('edit-staff', {
           user: user,
@@ -234,7 +234,7 @@ router.get('/edit-account', ensureAuth, (req, res) => {
 router.post('/edit-account', ensureAuth, async(req, res) => {
   let backURL = req.header('Referer') || '/';
 
-  console.log(req.query)
+  // console.log(req.query)
 
   if(req.query.type == 'staff') {
 
@@ -246,7 +246,7 @@ router.post('/edit-account', ensureAuth, async(req, res) => {
       res.redirect(backURL)
     }else {
       User.findByIdAndUpdate(req.query.id, req.body).then(user => {
-        console.log(user)
+        // console.log(user)
         if(user) {
           req.flash('success_msg', 'Changes successfully saved')
           res.redirect(backURL)
@@ -266,11 +266,11 @@ router.post('/edit-account', ensureAuth, async(req, res) => {
       res.redirect(backURL)
     }else {
       let info = req.body;
-      console.log(info);
+      // console.log(info);
       info["is_citizen_or_greencard"] =
         info["is_citizen_or_greencard"] === "on" ? true : false;
       VUsers.findByIdAndUpdate(req.query.id, info).then(user => {
-        console.log(user)
+        // console.log(user)
         if(user) {
           req.flash('success_msg', 'Changes successfully saved')
           res.redirect(backURL)
@@ -300,9 +300,9 @@ router.post('/edit-account', ensureAuth, async(req, res) => {
 @route POST /a/newrec
 */
 router.post('/newrec', ensureAuth, async(req, res) => {
-  console.log(req.body);
+  // console.log(req.body);
   let isahrs, stime, etime;
-  console.log(req.body.evt_type)
+  // console.log(req.body.evt_type)
   switch (parseInt(req.body.evt_type)) {
     case 0:
     case 3:
@@ -321,8 +321,8 @@ router.post('/newrec', ensureAuth, async(req, res) => {
   stime = req.body.start_time;
   etime = req.body.end_time;
 
-  console.log(stime);
-  console.log(etime);
+  // console.log(stime);
+  // console.log(etime);
 
   let target_user = await VUsers.findOne({ userid: req.body.userid })
 
@@ -337,11 +337,11 @@ router.post('/newrec', ensureAuth, async(req, res) => {
     event_type: evttypes[req.body.evt_type],
     event_desc: req.body.evt_desc ? req.body.evt_desc : ""
   }
-  console.log(isahrs)
+  // console.log(isahrs)
   if (isahrs) {
     delete newRec.additional_hours
   }
-  console.log(newRec);
+  // console.log(newRec);
 
   let record = Records.create(newRec);
   if (record) {

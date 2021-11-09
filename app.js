@@ -96,8 +96,8 @@ app.engine('.hbs', exphbs({
     getStat: (now, before, period) => {
       let decreaseValue = before - now;
       let perc = (decreaseValue / before) * 100;
-      console.log(perc);
-      console.log(perc > 0);
+      // console.log(perc);
+      // console.log(perc > 0);
       if(period == 'day') {
         period = 'yesterday';
       } else {

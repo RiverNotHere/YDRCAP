@@ -14,7 +14,7 @@ module.exports = {
         let res = `\n\n<optgroup label="${groupName}">`
         for (let itemId in data) {
             let item = data[itemId]
-            console.log(await isSelected(recID, item))
+            // console.log(await isSelected(recID, item))
             if (await isSelected(recID, item))
                 res += `\n<option value="${item}" selected>${item}</option>`
             else

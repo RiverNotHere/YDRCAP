@@ -101,7 +101,7 @@
                 <td>{{this.event_type}}</td>
                 <td class="hide-on-med-and-down">{{formatDate this.start_time "YYYY-MM-DD hh:mm A"}}</td>
                 <td class="hide-on-med-and-down">{{formatDate this.end_time "YYYY-MM-DD hh:mm A"}}</td>
-                <td>{{sum this.hours_recorded this.additional_hours}}</td>
+                <td>{{this.hours_recorded}}</td>
                 <td>{{this.event_description}}</td>
               </tr>
             {{/each}}

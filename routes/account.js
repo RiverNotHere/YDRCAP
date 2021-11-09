@@ -46,10 +46,10 @@ router.get('/:id', ensureAuth, async(req, res) => {
 
   if(req.query.type == 'volunteer') {
     let user = await VUsers.findById(req.params.id).lean()
-    let records = await Record.find({ userid: user.userid }).lean()
+    let records = await Record.find({ email: user.email }).lean()
     console.log(records)
 
-    user.total_hours = await getTotalHours(user.userid)
+    user.total_hours = await getTotalHours(user.email)
 
     if(user) {
       console.log(user)

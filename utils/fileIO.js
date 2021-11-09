@@ -11,7 +11,7 @@ module.exports = {
   writeFile: (filename, data) => {
     let filepath = `files/${filename}.csv`
     // await fs.unlink(filepath, (err) => {if(err) throw err})
-    console.log(data)
+    // console.log(data)
     fs.writeFileSync(filepath, data)
   }
 }
