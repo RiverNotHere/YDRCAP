@@ -10,7 +10,7 @@ module.exports = {
   exportVolSummaryCSV: (data) => {
     // const fields = ['Name', 'Email', 'Award Year', 'Age Group', 'Total Hours']
     // const opts = { fields }
-
+    console.log(data)
     if (data) {
       try {
         const parser = new Parser()

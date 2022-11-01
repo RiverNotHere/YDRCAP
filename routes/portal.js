@@ -126,17 +126,19 @@ router.get('/export-volunteer', async (req, res) => {
       "Email": user.email,
       "Award Year": current_year,
       "Age Group": getAgeGroup(user.birth_year, user.birth_month),
-      "Total Hours": await getTotalHours(user.userid)
+      "Total Hours": await getTotalHours(user.email)
     }
     data.push(sum)
+    console.log(user.userid)
   }))
 
   // Write and download the file
   let filedata = exportVolSummaryCSV(data)
+  console.log(filedata)
   // console.log(filedata)
-  writeFile(fileName, filedata)
-  let filepath = "files/VolunteerData.csv"
-  res.download(filepath)
+  // writeFile(fileName, filedata)
+  // let filepath = "files/VolunteerData.csv"
+  // res.download(filepath)
 
 })
 
