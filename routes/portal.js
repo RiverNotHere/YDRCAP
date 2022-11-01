@@ -136,9 +136,9 @@ router.get('/export-volunteer', async (req, res) => {
   let filedata = exportVolSummaryCSV(data)
   console.log(filedata)
   // console.log(filedata)
-  // writeFile(fileName, filedata)
-  // let filepath = "files/VolunteerData.csv"
-  // res.download(filepath)
+  writeFile(fileName, filedata)
+  let filepath = "files/VolunteerData.csv"
+  res.download(filepath)
 
 })
 
